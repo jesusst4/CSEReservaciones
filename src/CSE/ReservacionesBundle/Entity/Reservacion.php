@@ -5,8 +5,8 @@ namespace CSE\ReservacionesBundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
 use Doctrine\Common\Collections\ArrayCollection;
 
-use CSE\ReservacionesBundle\Entity\Atividades_X_Reservacion;
-use CSE\ReservacionesBundle\Entity\Servicios_X_Reservacion;
+use CSE\ReservacionesBundle\Entity\AtividadesXReservacion;
+use CSE\ReservacionesBundle\Entity\ServiciosXReservacion;
 
 /**
  * Reservacion
@@ -94,7 +94,7 @@ class Reservacion {
     private $huesped;
 
     /**
-     * @ORM\OneToMany(targetEntity="Atividades_X_Reservacion", mappedBy="reservacion", cascade={"all"})
+     * @ORM\OneToMany(targetEntity="AtividadesXReservacion", mappedBy="reservacion", cascade={"all"})
      * */
     private $actividades_x_reservacion;
     
@@ -103,7 +103,7 @@ class Reservacion {
     
     
      /**
-     * @ORM\OneToMany(targetEntity="Servicios_X_Reservacion", mappedBy="reservacion", cascade={"all"})
+     * @ORM\OneToMany(targetEntity="ServiciosXReservacion", mappedBy="reservacion", cascade={"all"})
      * */
     private $servicios_x_reservacion;
     
@@ -324,7 +324,7 @@ class Reservacion {
     {
         foreach($actividades as $a)
         {
-            $ar = new Atividades_X_Reservacion();
+            $ar = new AtividadesXReservacion();
 
             $ar->setReservacion($this);
             $ar->setActividad($a);
@@ -364,7 +364,7 @@ class Reservacion {
     {
         foreach($servicios as $s)
         {
-            $sr = new Servicios_X_Reservacion();
+            $sr = new ServiciosXReservacion();
 
             $sr->setReservacion($this);
             $sr->setServicio($s);

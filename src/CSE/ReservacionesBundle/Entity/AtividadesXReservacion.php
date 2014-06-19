@@ -5,12 +5,12 @@ namespace CSE\ReservacionesBundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * Atividades_X_Reservacion
+ * AtividadesXReservacion
  *
  * @ORM\Table()
- * @ORM\Entity(repositoryClass="CSE\ReservacionesBundle\Entity\Atividades_X_ReservacionRepository")
+ * @ORM\Entity(repositoryClass="CSE\ReservacionesBundle\Entity\AtividadesXReservacionRepository")
  */
-class Atividades_X_Reservacion {
+class AtividadesXReservacion {
 
     /**
      * @var integer
@@ -67,7 +67,7 @@ class Atividades_X_Reservacion {
      * Set fecha
      *
      * @param \DateTime $fecha
-     * @return Atividades_X_Reservacion
+     * @return AtividadesXReservacion
      */
     public function setFecha($fecha) {
         $this->fecha = $fecha;
@@ -88,7 +88,7 @@ class Atividades_X_Reservacion {
      * Set cantPersonas
      *
      * @param integer $cantPersonas
-     * @return Atividades_X_Reservacion
+     * @return AtividadesXReservacion
      */
     public function setCantPersonas($cantPersonas) {
         $this->cantPersonas = $cantPersonas;
@@ -109,7 +109,7 @@ class Atividades_X_Reservacion {
      * Set subtotal
      *
      * @param string $subtotal
-     * @return Atividades_X_Reservacion
+     * @return AtividadesXReservacion
      */
     public function setSubtotal($subtotal) {
         $this->subtotal = $subtotal;
@@ -130,7 +130,7 @@ class Atividades_X_Reservacion {
      * Set actividad
      *
      * @param string $actividad
-     * @return Atividades_X_Reservacion
+     * @return AtividadesXReservacion
      */
     public function setActividad($actividad) {
         $this->actividad = $actividad;
@@ -151,7 +151,7 @@ class Atividades_X_Reservacion {
      * Set reservacion
      *
      * @param string $reservacion
-     * @return Atividades_X_Reservacion
+     * @return AtividadesXReservacion
      */
     public function setReservacion($reservacion) {
         $this->reservacion = $reservacion;

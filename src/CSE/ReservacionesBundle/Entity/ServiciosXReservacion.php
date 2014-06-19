@@ -5,12 +5,12 @@ namespace CSE\ReservacionesBundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * Servicios_X_Reservacion
+ * ServiciosXReservacion
  *
  * @ORM\Table()
- * @ORM\Entity(repositoryClass="CSE\ReservacionesBundle\Entity\Servicios_X_ReservacionRepository")
+ * @ORM\Entity(repositoryClass="CSE\ReservacionesBundle\Entity\ServiciosXReservacionRepository")
  */
-class Servicios_X_Reservacion
+class ServiciosXReservacion
 {
     /**
      * @var integer
@@ -66,7 +66,7 @@ class Servicios_X_Reservacion
      * Set cantPersonas
      *
      * @param integer $cantPersonas
-     * @return Servicios_X_Reservacion
+     * @return ServiciosXReservacion
      */
     public function setCantPersonas($cantPersonas)
     {
@@ -89,7 +89,7 @@ class Servicios_X_Reservacion
      * Set subtotal
      *
      * @param string $subtotal
-     * @return Servicios_X_Reservacion
+     * @return ServiciosXReservacion
      */
     public function setSubtotal($subtotal)
     {
@@ -113,7 +113,7 @@ class Servicios_X_Reservacion
      * Set servicio
      *
      * @param string $servicio
-     * @return Servicios_X_Reservacion
+     * @return ServiciosXReservacion
      */
     public function setServicio($servicio) {
         $this->servicio = $servicio;
@@ -134,7 +134,7 @@ class Servicios_X_Reservacion
      * Set reservacion
      *
      * @param string $reservacion
-     * @return Servicios_X_Reservacion
+     * @return ServiciosXReservacion
      */
     public function setReservacion($reservacion) {
         $this->reservacion = $reservacion;

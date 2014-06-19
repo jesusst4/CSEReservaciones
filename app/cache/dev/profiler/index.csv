@@ -1,2 +1,10 @@
-5375b5,127.0.0.1,GET,http://reservaciones/app_dev.php/hello/juan,1403202448,
-443974,127.0.0.1,GET,http://reservaciones/app_dev.php/hello/juan,1403202625,
+2d8dad,127.0.0.1,GET,http://reservaciones/app_dev.php/,1403212224,fbe41d
+fbe41d,127.0.0.1,GET,http://reservaciones/app_dev.php/,1403212224,
+0051df,127.0.0.1,GET,http://reservaciones/app_dev.php/reservaciones,1403212249,57b651
+57b651,127.0.0.1,GET,http://reservaciones/app_dev.php/reservaciones,1403212249,
+dc2aa2,127.0.0.1,GET,http://reservaciones/app_dev.php/reservacion,1403212263,
+1510bc,127.0.0.1,GET,http://reservaciones/app_dev.php/reservacion/,1403212263,644b25
+644b25,127.0.0.1,GET,http://reservaciones/app_dev.php/reservacion/,1403212263,
+ea60d6,127.0.0.1,GET,http://reservaciones/app_dev.php/reservacion/,1403214277,
+364219,127.0.0.1,GET,http://reservaciones/app_dev.php/reservacion/,1403214340,
+b86bc6,127.0.0.1,GET,http://reservaciones/app_dev.php/reservacion/,1403214805,
