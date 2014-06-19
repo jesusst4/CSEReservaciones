@@ -1,0 +1,4 @@
+cse_reservaciones:
+    resource: "@CSEReservacionesBundle/Resources/config/routing.yml"
+    prefix:   /
+
