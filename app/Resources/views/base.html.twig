@@ -2,12 +2,54 @@
 <html>
     <head>
         <meta charset="UTF-8" />
-        <title>{% block title %}Welcome!{% endblock %}</title>
-        {% block stylesheets %}{% endblock %}
-        <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}" />
-    </head>
-    <body>
-        {% block body %}{% endblock %}
-        {% block javascripts %}{% endblock %}
-    </body>
+        <title>{% block title %}Hotel las Brisas del Pacífico{% endblock %}</title>                
+
+        {% block stylesheets %}
+            {% stylesheets '@CSEReservacionesBundle/Resources/public/css/*'%}
+            <link rel="stylesheet" href="{{ asset_url }}" />
+            {% endstylesheets %}
+        {% endblock %}
+
+        {% block menu %}
+        <div class="divEncabezado">
+            <div class="divLogin">
+                
+                <span> <label> Usuario:</label>
+                    <input type="text" name="txtUsuario" placeholder="usuario"/></span>
+                <span><label> Contraseña:</label>
+                    <input type="text" name="txtContrasenia" placeholder="contraseña"/></span>
+            </div>
+        </div>
+        <div class="divBanner">
+            {% image '@CSEReservacionesBundle/Resources/public/images/*' %}
+            <img class="divBanner" src="{{ asset_url }}" alt="banner"/>
+            {% endimage %}
+            
+        </div>
+        <ul id="menu-horizontal">
+            <li><a href="index.php" title="Texto">Inicio</a></li>
+            <li><a href="HabitacionView.php" title="Texto">Habitaciones</a></li>
+            <li><a href="ServicioView.php" title="Texto">Servicios</a></li>
+            <li><a href="ActividadView.php" title="Texto">Actividades</a></li>
+
+            <li><a href = "#" title = "Texto">Reservaciones</a>
+                <ul>
+                    <li><a href = "ReservacionCrear.php" title = "Texto">Crear</a></li>
+                   
+                    <li><a href = "ReservacionBuscar.php" title = "Texto">Buscar</a></li>
+                    <li><a href = "ReservacionListado.php" title = "Texto">Ver Listado</a></li>
+                    <li><a href = "ReservacionGanancias.php" title = "Texto">Ganacias</a></li>
+                   
+                </ul>
+            </li>
+        </ul>
+    {% endblock %}
+
+    <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}" />
+</head>
+<body>
+{% block body %}
+{% endblock %}
+{% block javascripts %}{% endblock %}
+</body>
 </html>
