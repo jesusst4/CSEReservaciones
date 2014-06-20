@@ -1,0 +1,30 @@
+reservacion:
+    pattern:  /
+    defaults: { _controller: "CSEReservacionesBundle:Reservacion:index" }
+
+reservacion_show:
+    pattern:  /{id}/show
+    defaults: { _controller: "CSEReservacionesBundle:Reservacion:show" }
+
+reservacion_new:
+    pattern:  /new
+    defaults: { _controller: "CSEReservacionesBundle:Reservacion:new" }
+
+reservacion_create:
+    pattern:  /create
+    defaults: { _controller: "CSEReservacionesBundle:Reservacion:create" }
+    requirements: { _method: post }
+
+reservacion_edit:
+    pattern:  /{id}/edit
+    defaults: { _controller: "CSEReservacionesBundle:Reservacion:edit" }
+
+reservacion_update:
+    pattern:  /{id}/update
+    defaults: { _controller: "CSEReservacionesBundle:Reservacion:update" }
+    requirements: { _method: post|put }
+
+reservacion_delete:
+    pattern:  /{id}/delete
+    defaults: { _controller: "CSEReservacionesBundle:Reservacion:delete" }
+    requirements: { _method: post|delete }

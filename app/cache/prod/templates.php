@@ -77,5 +77,10 @@
   'SwiftmailerBundle:Collector:swiftmailer.html.twig' => '/var/www/Reservaciones/vendor/symfony/swiftmailer-bundle/Symfony/Bundle/SwiftmailerBundle/Resources/views/Collector/swiftmailer.html.twig',
   'DoctrineBundle:Collector:db.html.twig' => '/var/www/Reservaciones/vendor/doctrine/doctrine-bundle/Doctrine/Bundle/DoctrineBundle/Resources/views/Collector/db.html.twig',
   'DoctrineBundle:Collector:explain.html.twig' => '/var/www/Reservaciones/vendor/doctrine/doctrine-bundle/Doctrine/Bundle/DoctrineBundle/Resources/views/Collector/explain.html.twig',
+  'CSEReservacionesBundle:Default:index.html.twig' => '/var/www/Reservaciones/src/CSE/ReservacionesBundle/Resources/views/Default/index.html.twig',
+  'CSEReservacionesBundle:Reservacion:edit.html.twig' => '/var/www/Reservaciones/src/CSE/ReservacionesBundle/Resources/views/Reservacion/edit.html.twig',
+  'CSEReservacionesBundle:Reservacion:new.html.twig' => '/var/www/Reservaciones/src/CSE/ReservacionesBundle/Resources/views/Reservacion/new.html.twig',
+  'CSEReservacionesBundle:Reservacion:show.html.twig' => '/var/www/Reservaciones/src/CSE/ReservacionesBundle/Resources/views/Reservacion/show.html.twig',
+  'CSEReservacionesBundle:Reservacion:index.html.twig' => '/var/www/Reservaciones/src/CSE/ReservacionesBundle/Resources/views/Reservacion/index.html.twig',
   '::base.html.twig' => '/var/www/Reservaciones/app/Resources/views/base.html.twig',
 );

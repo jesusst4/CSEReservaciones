@@ -1,3 +1,7 @@
 cse_reservaciones_homepage:
     pattern:  /hello/{name}
     defaults: { _controller: CSEReservacionesBundle:Default:index }
+
+CSEReservacionesBundle_reservacion:
+        resource: "@CSEReservacionesBundle/Resources/config/routing/reservacion.yml"
+        prefix:   /reservacion
