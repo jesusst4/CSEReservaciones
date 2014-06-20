@@ -37,7 +37,7 @@ class Servicio
 
     
     /**
-     * @ORM\OneToMany(targetEntity="Servicios_X_Reservacion", mappedBy="servicio", cascade={"all"})
+     * @ORM\OneToMany(targetEntity="ServiciosXReservacion", mappedBy="servicio", cascade={"all"})
      * */
     private $servicios_x_reservacion;
 

@@ -36,7 +36,7 @@ class Actividad
     private $precio;
 
     /**
-     * @ORM\OneToMany(targetEntity="Atividades_X_Reservacion", mappedBy="actividad", cascade={"all"})
+     * @ORM\OneToMany(targetEntity="AtividadesXReservacion", mappedBy="actividad", cascade={"all"})
      * */
     private $actividades_x_reservacion;
     

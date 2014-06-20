@@ -13,7 +13,7 @@
         {% block menu %}
         <div class="divEncabezado">
             <div class="divLogin">
-                
+
                 <span> <label> Usuario:</label>
                     <input type="text" name="txtUsuario" placeholder="usuario"/></span>
                 <span><label> Contraseña:</label>
@@ -24,7 +24,7 @@
             {% image '@CSEReservacionesBundle/Resources/public/images/*' %}
             <img class="divBanner" src="{{ asset_url }}" alt="banner"/>
             {% endimage %}
-            
+
         </div>
         <ul id="menu-horizontal">
             <li><a href="index.php" title="Texto">Inicio</a></li>
@@ -32,14 +32,13 @@
             <li><a href="ServicioView.php" title="Texto">Servicios</a></li>
             <li><a href="ActividadView.php" title="Texto">Actividades</a></li>
 
-            <li><a href = "#" title = "Texto">Reservaciones</a>
+            <li><a href="{{ path('reservacion') }}"> Reservaciones</a>
                 <ul>
-                    <li><a href = "ReservacionCrear.php" title = "Texto">Crear</a></li>
-                   
+                    <li><a href="{{ path('reservacion_new') }}"> Crear</a></li>
                     <li><a href = "ReservacionBuscar.php" title = "Texto">Buscar</a></li>
                     <li><a href = "ReservacionListado.php" title = "Texto">Ver Listado</a></li>
                     <li><a href = "ReservacionGanancias.php" title = "Texto">Ganacias</a></li>
-                   
+
                 </ul>
             </li>
         </ul>
@@ -48,8 +47,8 @@
     <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}" />
 </head>
 <body>
-{% block body %}
-{% endblock %}
+    {% block body %}
+    {% endblock %}
 {% block javascripts %}{% endblock %}
 </body>
 </html>

@@ -6,7 +6,7 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 
-class ReservacionType extends AbstractType
+class HuespedType extends AbstractType
 {
         /**
      * @param FormBuilderInterface $builder
@@ -15,16 +15,10 @@ class ReservacionType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('codigo')
-            ->add('cantPersonas')
-            ->add('fechaIngreso')
-            ->add('fechaSalida')
-            ->add('totalReservacion')
-
-//            ->add('subtotalServicios')
-//            ->add('subtotalActividades')
-            ->add('habitacion')
-//            ->add('huesped')
+            ->add('cedula')
+            ->add('nombre')
+            ->add('correo')
+            ->add('celular')
         ;
     }
     
@@ -34,7 +28,7 @@ class ReservacionType extends AbstractType
     public function setDefaultOptions(OptionsResolverInterface $resolver)
     {
         $resolver->setDefaults(array(
-            'data_class' => 'CSE\ReservacionesBundle\Entity\Reservacion'
+            'data_class' => 'CSE\ReservacionesBundle\Entity\Huesped'
         ));
     }
 
@@ -43,6 +37,6 @@ class ReservacionType extends AbstractType
      */
     public function getName()
     {
-        return 'cse_reservacionesbundle_reservacion';
+        return 'cse_reservacionesbundle_huesped';
     }
 }
