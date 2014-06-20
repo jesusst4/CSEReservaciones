@@ -8,6 +8,9 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use CSE\ReservacionesBundle\Entity\Reservacion;
 use CSE\ReservacionesBundle\Form\ReservacionType;
 
+use CSE\ReservacionesBundle\Entity\Huesped;
+use CSE\ReservacionesBundle\Form\HuespedType;
+
 /**
  * Reservacion controller.
  *
@@ -67,7 +70,7 @@ class ReservacionController extends Controller
             'method' => 'POST',
         ));
 
-        $form->add('submit', 'submit', array('label' => 'Create'));
+//        $form->add('submit', 'submit', array('label' => 'Create'));
 
         return $form;
     }
@@ -79,11 +82,15 @@ class ReservacionController extends Controller
     public function newAction()
     {
         $entity = new Reservacion();
+        $entity->setCodigo("B012F456T7");
         $form   = $this->createCreateForm($entity);
+        $huesped= new Huesped();
+        $formHuesped= $this->createCreateFormHuesped($huesped);
 
         return $this->render('CSEReservacionesBundle:Reservacion:new.html.twig', array(
             'entity' => $entity,
             'form'   => $form->createView(),
+            'formHuesped'   => $formHuesped->createView(),
         ));
     }
 
@@ -220,4 +227,27 @@ class ReservacionController extends Controller
             ->getForm()
         ;
     }
+    
+    
+    
+    /**
+    * Creates a form to create a Huesped entity.
+    *
+    * @param Huesped $entity The entity
+    *
+    * @return \Symfony\Component\Form\Form The form
+    */
+    private function createCreateFormHuesped(Huesped $entity)
+    {
+        $form = $this->createForm(new HuespedType(), $entity, array(
+            'action' => $this->generateUrl('huesped_create'),
+            'method' => 'POST',
+        ));
+
+        $form->add('submit', 'submit', array('label' => 'Create'));
+
+        return $form;
+    }
+
+   
 }

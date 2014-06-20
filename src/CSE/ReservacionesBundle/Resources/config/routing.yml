@@ -5,3 +5,6 @@ cse_reservaciones_homepage:
 CSEReservacionesBundle_reservacion:
     resource: "@CSEReservacionesBundle/Resources/config/routing/reservacion.yml"
     prefix:   /reservacion
+CSEReservacionesBundle_huesped:
+    resource: "@CSEReservacionesBundle/Resources/config/routing/huesped.yml"
+    prefix:   /huesped

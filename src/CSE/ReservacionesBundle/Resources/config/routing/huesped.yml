@@ -1,0 +1,30 @@
+huesped:
+    pattern:  /
+    defaults: { _controller: "CSEReservacionesBundle:Huesped:index" }
+
+huesped_show:
+    pattern:  /{id}/show
+    defaults: { _controller: "CSEReservacionesBundle:Huesped:show" }
+
+huesped_new:
+    pattern:  /new
+    defaults: { _controller: "CSEReservacionesBundle:Huesped:new" }
+
+huesped_create:
+    pattern:  /create
+    defaults: { _controller: "CSEReservacionesBundle:Huesped:create" }
+    requirements: { _method: post }
+
+huesped_edit:
+    pattern:  /{id}/edit
+    defaults: { _controller: "CSEReservacionesBundle:Huesped:edit" }
+
+huesped_update:
+    pattern:  /{id}/update
+    defaults: { _controller: "CSEReservacionesBundle:Huesped:update" }
+    requirements: { _method: post|put }
+
+huesped_delete:
+    pattern:  /{id}/delete
+    defaults: { _controller: "CSEReservacionesBundle:Huesped:delete" }
+    requirements: { _method: post|delete }

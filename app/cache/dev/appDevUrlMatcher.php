@@ -239,6 +239,66 @@ class appDevUrlMatcher extends Symfony\Bundle\FrameworkBundle\Routing\Redirectab
 
         }
 
+        if (0 === strpos($pathinfo, '/huesped')) {
+            // huesped
+            if (rtrim($pathinfo, '/') === '/huesped') {
+                if (substr($pathinfo, -1) !== '/') {
+                    return $this->redirect($pathinfo.'/', 'huesped');
+                }
+
+                return array (  '_controller' => 'CSE\\ReservacionesBundle\\Controller\\HuespedController::indexAction',  '_route' => 'huesped',);
+            }
+
+            // huesped_show
+            if (preg_match('#^/huesped/(?P<id>[^/]++)/show$#s', $pathinfo, $matches)) {
+                return $this->mergeDefaults(array_replace($matches, array('_route' => 'huesped_show')), array (  '_controller' => 'CSE\\ReservacionesBundle\\Controller\\HuespedController::showAction',));
+            }
+
+            // huesped_new
+            if ($pathinfo === '/huesped/new') {
+                return array (  '_controller' => 'CSE\\ReservacionesBundle\\Controller\\HuespedController::newAction',  '_route' => 'huesped_new',);
+            }
+
+            // huesped_create
+            if ($pathinfo === '/huesped/create') {
+                if ($this->context->getMethod() != 'POST') {
+                    $allow[] = 'POST';
+                    goto not_huesped_create;
+                }
+
+                return array (  '_controller' => 'CSE\\ReservacionesBundle\\Controller\\HuespedController::createAction',  '_route' => 'huesped_create',);
+            }
+            not_huesped_create:
+
+            // huesped_edit
+            if (preg_match('#^/huesped/(?P<id>[^/]++)/edit$#s', $pathinfo, $matches)) {
+                return $this->mergeDefaults(array_replace($matches, array('_route' => 'huesped_edit')), array (  '_controller' => 'CSE\\ReservacionesBundle\\Controller\\HuespedController::editAction',));
+            }
+
+            // huesped_update
+            if (preg_match('#^/huesped/(?P<id>[^/]++)/update$#s', $pathinfo, $matches)) {
+                if (!in_array($this->context->getMethod(), array('POST', 'PUT'))) {
+                    $allow = array_merge($allow, array('POST', 'PUT'));
+                    goto not_huesped_update;
+                }
+
+                return $this->mergeDefaults(array_replace($matches, array('_route' => 'huesped_update')), array (  '_controller' => 'CSE\\ReservacionesBundle\\Controller\\HuespedController::updateAction',));
+            }
+            not_huesped_update:
+
+            // huesped_delete
+            if (preg_match('#^/huesped/(?P<id>[^/]++)/delete$#s', $pathinfo, $matches)) {
+                if (!in_array($this->context->getMethod(), array('POST', 'DELETE'))) {
+                    $allow = array_merge($allow, array('POST', 'DELETE'));
+                    goto not_huesped_delete;
+                }
+
+                return $this->mergeDefaults(array_replace($matches, array('_route' => 'huesped_delete')), array (  '_controller' => 'CSE\\ReservacionesBundle\\Controller\\HuespedController::deleteAction',));
+            }
+            not_huesped_delete:
+
+        }
+
         throw 0 < count($allow) ? new MethodNotAllowedException(array_unique($allow)) : new ResourceNotFoundException();
     }
 }
