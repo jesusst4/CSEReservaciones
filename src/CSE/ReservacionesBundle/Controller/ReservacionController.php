@@ -68,7 +68,7 @@ class ReservacionController extends Controller {
      */
     private function createCreateForm(Reservacion $entity) {
         $form = $this->createForm(new ReservacionType(), $entity);
-        $form->add('submit', 'submit', array('label' => 'Guardar'));
+        $form->add('submit', 'submit', array('label' => 'Servicios','attr'  => array('class'=>'btn'),));
         return $form;
     }
 

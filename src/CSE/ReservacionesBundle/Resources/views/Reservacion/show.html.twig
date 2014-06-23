@@ -1,56 +1,57 @@
 {% extends '::base.html.twig' %}
 
 {% block body -%}
-    <h1>Reservacion</h1>
-
-    <table class="record_properties">
-        <tbody>
-            <tr>
-                <th>Id</th>
-                <td>{{ entity.id }}</td>
-            </tr>
-            <tr>
-                <th>Codigo</th>
-                <td>{{ entity.codigo }}</td>
-            </tr>
-            <tr>
-                <th>Cantpersonas</th>
-                <td>{{ entity.cantPersonas }}</td>
-            </tr>
-            <tr>
-                <th>Fechaingreso</th>
-                <td>{{ entity.fechaIngreso|date('Y-m-d H:i:s') }}</td>
-            </tr>
-            <tr>
-                <th>Fechasalida</th>
-                <td>{{ entity.fechaSalida|date('Y-m-d H:i:s') }}</td>
-            </tr>
-            <tr>
-                <th>Totalreservacion</th>
-                <td>{{ entity.totalReservacion }}</td>
-            </tr>
-            <tr>
-                <th>Subtotalservicios</th>
-                <td>{{ entity.subtotalServicios }}</td>
-            </tr>
-            <tr>
-                <th>Subtotalactividades</th>
-                <td>{{ entity.subtotalActividades }}</td>
-            </tr>
-        </tbody>
-    </table>
+    <div class="divContenedor">
+        <h2>Reservación</h2>
+        <table class="record_properties">
+            <tbody>
+                <tr>
+                    <th>Id</th>
+                    <td>{{ entity.id }}</td>
+                </tr>
+                <tr>
+                    <th>Codigo</th>
+                    <td>{{ entity.codigo }}</td>
+                </tr>
+                <tr>
+                    <th>Cantpersonas</th>
+                    <td>{{ entity.cantPersonas }}</td>
+                </tr>
+                <tr>
+                    <th>Fechaingreso</th>
+                    <td>{{ entity.fechaIngreso|date('Y-m-d H:i:s') }}</td>
+                </tr>
+                <tr>
+                    <th>Fechasalida</th>
+                    <td>{{ entity.fechaSalida|date('Y-m-d H:i:s') }}</td>
+                </tr>
+                <tr>
+                    <th>Totalreservacion</th>
+                    <td>{{ entity.totalReservacion }}</td>
+                </tr>
+                <tr>
+                    <th>Subtotalservicios</th>
+                    <td>{{ entity.subtotalServicios }}</td>
+                </tr>
+                <tr>
+                    <th>Subtotalactividades</th>
+                    <td>{{ entity.subtotalActividades }}</td>
+                </tr>
+            </tbody>
+        </table>
 
         <ul class="record_actions">
-    <li>
-        <a href="{{ path('reservacion') }}">
-            Back to the list
-        </a>
-    </li>
-    <li>
-        <a href="{{ path('reservacion_edit', { 'id': entity.id }) }}">
-            Edit
-        </a>
-    </li>
-    <li>{{ form(delete_form) }}</li>
-</ul>
+            <li>
+                <a href="{{ path('reservacion') }}">
+                    Back to the list
+                </a>
+            </li>
+            <li>
+                <a href="{{ path('reservacion_edit', { 'id': entity.id }) }}">
+                    Editar
+                </a>
+            </li>
+            <li>{{ form(delete_form) }}</li>
+        </ul>
+    </div>
 {% endblock %}
