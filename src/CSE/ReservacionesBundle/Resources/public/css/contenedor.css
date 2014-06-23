@@ -108,7 +108,7 @@ form {
 form div { padding: 7px; }
 form div label{display: block; float: left; width: 150px;color: grey; font-weight: bold;}
 select:focus, textarea:focus, input:focus{background-color: #FFFDD4;}
-select:hover, textarea:hover, input:hover{background-color: lightcyan;}
+/*select:hover, textarea:hover, input:hover{background-color: lightsteelblue;}*/
 
 h2{
     font-family: sans-serif;
@@ -127,6 +127,34 @@ a{
 
 .btn{
     float: right;
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    border-radius: 5px;
+    border: 2px solid blue;
+    background-color: blue;
+    font-family: sans-serif;
+    font-size: 14px;
+    color: #ffffff;
+    width: 100px;
+    height: 30px;
+    margin-top: 7px;
+}
+
+.txtTotal{
+    border:2px solid lightsteelblue;
+    font-family:sans-serif;
+    font-size:14px; 
+    width: 250px;
+    height: 20px;
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    border-radius: 5px;
+    background-color: lightsteelblue;
+}
+
+.btnTotal{
+    float: right;
+    margin-right: 20px;
     -webkit-border-radius: 5px;
     -moz-border-radius: 5px;
     border-radius: 5px;
