@@ -12,12 +12,12 @@ use Symfony\Component\Validator\Constraints as Assert;
  * @ORM\Table()
  * @ORM\Entity(repositoryClass="CSE\ReservacionesBundle\Entity\HabitacionRepository")
  */
-class Habitacion
-{
+class Habitacion {
+
     public function __construct() {
-	$this->reservaciones = new ArrayCollection();
+        $this->reservaciones = new ArrayCollection();
     }
-    
+
     /**
      * @var integer
      *
@@ -47,7 +47,7 @@ class Habitacion
      * @ORM\Column(name="capacidad", type="smallint")
      */
     private $capacidad;
-    
+
     /**
      *
      * @ORM\OneToMany(targetEntity="Reservacion", mappedBy="habitacion")
@@ -59,8 +59,7 @@ class Habitacion
      *
      * @return integer 
      */
-    public function getId()
-    {
+    public function getId() {
         return $this->id;
     }
 
@@ -70,8 +69,7 @@ class Habitacion
      * @param string $tipo
      * @return Habitacion
      */
-    public function setTipo($tipo)
-    {
+    public function setTipo($tipo) {
         $this->tipo = $tipo;
 
         return $this;
@@ -82,8 +80,7 @@ class Habitacion
      *
      * @return string 
      */
-    public function getTipo()
-    {
+    public function getTipo() {
         return $this->tipo;
     }
 
@@ -93,8 +90,7 @@ class Habitacion
      * @param string $precio
      * @return Habitacion
      */
-    public function setPrecio($precio)
-    {
+    public function setPrecio($precio) {
         $this->precio = $precio;
 
         return $this;
@@ -105,8 +101,7 @@ class Habitacion
      *
      * @return string 
      */
-    public function getPrecio()
-    {
+    public function getPrecio() {
         return $this->precio;
     }
 
@@ -116,8 +111,7 @@ class Habitacion
      * @param integer $capacidad
      * @return Habitacion
      */
-    public function setCapacidad($capacidad)
-    {
+    public function setCapacidad($capacidad) {
         $this->capacidad = $capacidad;
 
         return $this;
@@ -128,18 +122,20 @@ class Habitacion
      *
      * @return integer 
      */
-    public function getCapacidad()
-    {
+    public function getCapacidad() {
         return $this->capacidad;
     }
-    
+
     /**
      * Get reservaciones
      *
      * @return array
      */
-    public function getReservaciones()
-    {
+    public function getReservaciones() {
         return $this->reservaciones;
+    }
+
+    public function __toString() {
+        return $this->tipo;
     }
 }

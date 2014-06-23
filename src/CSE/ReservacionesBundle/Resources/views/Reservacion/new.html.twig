@@ -2,17 +2,24 @@
 
 {% block body -%}
     <div class="divContenedor">
-        <h1>Reservacion creation</h1>
+        <form action="{{path('reservacion_create')}}"  method="POST">
+            <h2>Datos del Huésped</h2>
+            {{form_row(form.huesped.cedula)}}
+            {{form_row(form.huesped.nombre)}}
+            {{form_row(form.huesped.correo)}}
+            {{form_row(form.huesped.celular)}}
+            <h2>Datos de la Reservación</h2>
 
-        {{ form(formHuesped) }}
-        {{ form(form) }}
+            {{ form_rest(form)}}
 
-        <ul class="record_actions">
-            <li>
-                <a href="{{ path('reservacion') }}">
-                    Back to the list
-                </a>
-            </li>
-        </ul>
+            <ul class="record_actions">
+                <li>
+                    <a href="{{ path('reservacion') }}">
+                        Back to the list
+                    </a>
+                </li>
+            </ul>
+                        
+        </form>
     </div>
 {% endblock %}

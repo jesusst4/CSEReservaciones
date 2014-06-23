@@ -7,6 +7,7 @@ use Doctrine\Common\Collections\ArrayCollection;
 
 use CSE\ReservacionesBundle\Entity\AtividadesXReservacion;
 use CSE\ReservacionesBundle\Entity\ServiciosXReservacion;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * Reservacion
@@ -36,6 +37,8 @@ class Reservacion {
      * @var string
      *
      * @ORM\Column(name="codigo", type="string", length=10)
+     * 
+     * @Assert\NotNull()
      */
     private $codigo;
 
@@ -43,6 +46,8 @@ class Reservacion {
      * @var integer
      *
      * @ORM\Column(name="cant_personas", type="smallint")
+     * 
+     * @Assert\NotNull()
      */
     private $cantPersonas;
 
@@ -50,6 +55,9 @@ class Reservacion {
      * @var \DateTime
      *
      * @ORM\Column(name="fecha_ingreso", type="date")
+     * 
+     * @Assert\NotNull()
+     * 
      */
     private $fechaIngreso;
 
@@ -57,6 +65,8 @@ class Reservacion {
      * @var \DateTime
      *
      * @ORM\Column(name="fecha_salida", type="date")
+     * 
+     * @Assert\NotNull()
      */
     private $fechaSalida;
 
@@ -64,32 +74,43 @@ class Reservacion {
      * @var string
      *
      * @ORM\Column(name="total_reservacion", type="decimal", scale=2)
+     * 
+     * @Assert\NotNull()
      */
     private $totalReservacion;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="subtotal_servicios", type="decimal", scale=2)
+     * @ORM\Column(name="subtotal_servicios", type="decimal", scale=2, nullable=true)
+     * 
+     * @Assert\Null()
      */
     private $subtotalServicios;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="subtotal_actividades", type="decimal", scale=2)
+     * @ORM\Column(name="subtotal_actividades", type="decimal", scale=2, nullable=true)
+     * 
+     * @Assert\Null()
      */
     private $subtotalActividades;
 
     /**
      * @ORM\ManyToOne(targetEntity="Habitacion", inversedBy="reservaciones")
      * @ORM\JoinColumn(name="habitacion_id", referencedColumnName="id")
+     * 
+     * @Assert\NotNull()
      * */
     private $habitacion;
 
     /**
      * @ORM\ManyToOne(targetEntity="Huesped", inversedBy="reservaciones")
      * @ORM\JoinColumn(name="huesped_id", referencedColumnName="id")
+     * 
+     * @Assert\NotNull()
+     * @Assert\Type(type="CSE\ReservacionesBundle\Entity\Huesped")
      * */
     private $huesped;
 

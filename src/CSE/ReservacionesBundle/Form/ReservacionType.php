@@ -15,25 +15,23 @@ class ReservacionType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('codigo')
-            ->add('cantPersonas')
-            ->add('fechaIngreso')
-            ->add('fechaSalida')
-            ->add('totalReservacion')
-//            ->add('subtotalServicios')
-//            ->add('subtotalActividades')
-            ->add('habitacion')
-//            ->add('huesped')
-        ;
+            ->add('huesped', new HuespedType())
+            ->add('codigo','text',array('attr'  => array('class'=>'txt'), 'label'=>'Código' ))
+            ->add('cantPersonas','text',array('attr'  => array('class'=>'txt'), 'label'=>'N° de Personas' ))
+            ->add('fechaIngreso','date',array('attr'  => array('label'=>'Fecha de Ingreso' )))
+            ->add('fechaSalida','date',array('attr'  => array( 'label'=>'Fecha de Salida' )))
+            ->add('habitacion','entity',array('attr' => array('class'=>'txt', 'placeholder'=>'Seleccione el tipo de habitación'),'class' => 'CSEReservacionesBundle:Habitacion'))
+            ->add('totalReservacion','text',array('attr'  => array('class'=>'txt'), 'label'=>'Total' ));
     }
     
     /**
      * @param OptionsResolverInterface $resolver
      */
     public function setDefaultOptions(OptionsResolverInterface $resolver)
-    {
+    {        
         $resolver->setDefaults(array(
-            'data_class' => 'CSE\ReservacionesBundle\Entity\Reservacion'
+            'data_class' => 'CSE\ReservacionesBundle\Entity\Reservacion',
+             'cascade_validation' => true,
         ));
     }
 
