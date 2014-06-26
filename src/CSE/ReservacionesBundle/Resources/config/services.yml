@@ -1,7 +1,7 @@
 parameters:
-#    cse_reservaciones.example.class: CSE\ReservacionesBundle\Example
+    reservacionesServices.class: CSE\ReservacionesBundle\Services\ReservacionesServices
 
 services:
-#    cse_reservaciones.example:
-#        class: %cse_reservaciones.example.class%
-#        arguments: [@service_id, "plain_value", %parameter%]
+    reservacionesServices:
+        class: %reservacionesServices.class%
+        arguments: [@doctrine]

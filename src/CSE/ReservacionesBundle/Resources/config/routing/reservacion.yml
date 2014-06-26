@@ -28,3 +28,11 @@ reservacion_delete:
     pattern:  /{id}/delete
     defaults: { _controller: "CSEReservacionesBundle:Reservacion:delete" }
     requirements: { _method: post|delete }
+    
+reservacion_servicios:
+    pattern: /{id}/servicios
+    defaults: {_controller: "CSEReservacionesBundle:Reservacion:servicios"}
+    
+reservacion_agregarservicios:
+    pattern: /{id}/agregarServicios
+    defaults: {_controller: "CSEReservacionesBundle:Reservacion:agregarServicios"}

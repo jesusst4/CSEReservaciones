@@ -1,16 +1,48 @@
 {% extends '::base.html.twig' %}
 
 {% block body -%}
+    <script type="text/javascript" >
+        function validarCantPersonas() {
+            var listaHabitaciones = $('#habitaciones').val();
+            var capacidadHabitaciones = JSON.parse(listaHabitaciones, function(clave, valor) {
+                return valor;
+            });
+            var cantPersonas = document.getElementById('cse_reservacionesbundle_reservacion_cantPersonas').value;
+            var selectVal = $('#cse_reservacionesbundle_reservacion_habitacion :selected').val();
+            for (var i = 0; i < capacidadHabitaciones.length; i++) {
+                if (selectVal == capacidadHabitaciones[i].id) {
+                    if (cantPersonas == capacidadHabitaciones[i].capacidad || cantPersonas < capacidadHabitaciones[i].capacidad) {
+                        return  true;
+                    }
+                    else {
+                        $("#errorCantidad").text("La cantidad de personas no coincide con el tipo de habitación");
+                        return false;
+                    }
+                    break;
+                }
+            }
+        }
+    </script>
     <div class="divContenedor">
-        <form action="{{path('reservacion_create')}}"  method="POST">
+        <form action="{{path('reservacion_create')}}"  method="POST" onsubmit="return validarCantPersonas()">
             <h2>Datos del Huésped</h2>
             {{form_row(form.huesped.cedula)}}
             {{form_row(form.huesped.nombre)}}
             {{form_row(form.huesped.correo)}}
             {{form_row(form.huesped.celular)}}
             <h2>Datos de la Reservación</h2>
+            {{form_row(form.codigo)}}
+            {{form_row(form.fechaIngreso)}}
+            {{form_row(form.fechaSalida)}}
+            {{form_row(form.habitacion)}}
+            
+            <ul><li id="errorCantidad"></li></ul>
+
+            {{form_row(form.cantPersonas)}}
 
             {{ form_rest(form)}}
+            <input type="hidden" name="habitaciones[]" id="habitaciones" value="{{habitaciones}}"/>
+            <input type="button" name="calTotal" id="calTotal" value="Calcular Total" class="btnTotal"/>
 
             <ul >
                 <li>
@@ -19,7 +51,7 @@
                     </a>
                 </li>
             </ul>
-                        
+
         </form>
     </div>
 {% endblock %}

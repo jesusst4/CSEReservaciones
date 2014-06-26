@@ -12,4 +12,8 @@ use Doctrine\ORM\EntityRepository;
  */
 class HabitacionRepository extends EntityRepository
 {
+    
+    public function consultaPrecios() {
+        return $this->getEntityManager()->createQuery("SELECT  h.id, h.precio, h.capacidad FROM CSEReservacionesBundle:Habitacion h ")->getResult();       
+    }
 }

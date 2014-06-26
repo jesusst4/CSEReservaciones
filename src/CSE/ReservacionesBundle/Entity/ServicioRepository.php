@@ -11,5 +11,8 @@ use Doctrine\ORM\EntityRepository;
  * repository methods below.
  */
 class ServicioRepository extends EntityRepository
-{
+{ 
+    public function consultaPrecios() {
+        return $this->getEntityManager()->createQuery("SELECT  s.id, s.precio, s.requiereCant FROM CSEReservacionesBundle:Servicio s ")->getResult();       
+    }
 }

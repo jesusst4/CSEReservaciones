@@ -1,0 +1,45 @@
+{# empty Twig template #}
+{% extends '::base.html.twig' %}
+
+{% block body -%}
+    <form action="{{path('reservacion_agregarservicios',{'id':entity}) }}" method="POST">
+        <div class="divContenedor">
+            <input type="hidden" id="reservacion" name="reservacion" value="{{ entity }}">
+            <table class="table" id="tblServicios">
+                <thead>
+                    <tr>
+                        <th></th>
+                        <th>Servicio</th>
+                        <th>Precio</th>
+                        <th>Cantidad de Personas</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for servicio in servicios %}
+                        <tr>
+                            {% if servicio.requiereCant==1 %}
+                                <td> <input type='checkbox' name='serviciosSe[]' value='{{servicio.getId()}}'/></td>
+                                <td>{{servicio.tipo}}</td>
+                                <td>{{servicio.precio}}</td>
+                                <td> 
+                                    <ul><li class="limensaje" id="errorCatidadPer{{servicio.id}}"></li></ul>
+                                    <input type='number' name='canPersonas{{servicio.id}}' class='txtSelect' placeholder='Cantidad de personas'id='cantPersLavand'/>
+                                </td>
+                            {%else%}
+                                <td> <input type='checkbox' name='serviciosSe[]' value='{{servicio.getId()}}'/></td>
+                                <td>{{servicio.tipo}}</td>
+                                <td>{{servicio.precio}}</td>
+                            {%endif%}
+                        </tr>
+                    {% endfor%}
+                </tbody>
+            </table>
+            <label>Total Servicios</label>
+            <input type="hidden" name="preciosServicios[]" id="precioServicios" value="{{listaPrecios}}"/>
+            <input type="text" class="txtTotal" name="totalServicios" id="totalServicios" readonly="true"/>
+            <input type="submit" name="btnActividades" value="Actividades" class="btnTotal" id="actividades"/>
+            <input type="button" name="calTotalServ" value="Calcular Total" class="btnTotal" id="calTotalServ"/>
+
+        </div>
+    </form>
+{% endblock%}

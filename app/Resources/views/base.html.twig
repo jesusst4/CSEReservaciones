@@ -5,9 +5,13 @@
         <title>{% block title %}Hotel las Brisas del Pacífico{% endblock %}</title>                
 
         {% block stylesheets %}
-            {% stylesheets '@CSEReservacionesBundle/Resources/public/css/*'%}
+            {% stylesheets '@CSEReservacionesBundle/Resources/public/css/*' filter='cssrewrite' %}
             <link rel="stylesheet" href="{{ asset_url }}" />
             {% endstylesheets %}
+            
+            {% javascripts '@CSEReservacionesBundle/Resources/public/js/*' %}
+            <script type="text/javascript" src="{{ asset_url }}"></script>
+            {% endjavascripts %}
         {% endblock %}
 
         {% block menu %}

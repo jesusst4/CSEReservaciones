@@ -24,7 +24,7 @@ class ServiciosXReservacion
     /**
      * @var integer
      *
-     * @ORM\Column(name="cant_personas", type="smallint")
+     * @ORM\Column(name="cant_personas", type="smallint", nullable=true)
      */
     private $cantPersonas;
 

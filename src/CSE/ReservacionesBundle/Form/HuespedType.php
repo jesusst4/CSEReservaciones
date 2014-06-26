@@ -15,10 +15,10 @@ class HuespedType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('cedula','text',array('attr'  => array('class'=>'txt'), 'label'=>'Cédula' ))
-            ->add('nombre','text',array('attr'  => array('class'=>'txt'), 'label'=>'Nombre' ))
-            ->add('correo','text',array('attr'  => array('class'=>'txt'), 'label'=>'Correo' ))
-            ->add('celular','text',array('attr'  => array('class'=>'txt'), 'label'=>'Celular' ))
+            ->add('cedula','text',array('attr'  => array('class'=>'txt'), 'label'=>'Cédula','required'=> false,))
+            ->add('nombre','text',array('attr'  => array('class'=>'txt'), 'label'=>'Nombre','required'=> false,))
+            ->add('correo','text',array('attr'  => array('class'=>'txt'), 'label'=>'Correo','required'=> false,))
+            ->add('celular','text',array('attr'  => array('class'=>'txt'), 'label'=>'Celular','required'=> false,))
         ;
     }
     

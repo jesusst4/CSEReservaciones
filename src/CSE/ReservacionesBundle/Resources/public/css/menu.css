@@ -23,6 +23,8 @@ ul,ol {
     text-decoration: none;
     padding: 11px 0px 10px 0px;
     display: block;
+    font-family: Arial;
+    font-size: 18px;
 }
 
 #menu-horizontal>li {
