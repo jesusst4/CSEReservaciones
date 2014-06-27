@@ -22,14 +22,14 @@
                 <thead>
                     <tr>
 
-                        <th>Acciones</th>
+                        <th>Acción</th>
                         <th>Codigo</th>
-                        <th>N° de Personas</th>
+                        <th>Cédula</th>
+                        <th>Nombre</th>
+                        <th>Tipo Habitación</th>
                         <th>Fecha Ingreso</th>
                         <th>Fecha Salida</th>
-                        <th>Total Reservacion</th>
-                        <th>Subtotal Servicios</th>
-                        <th>Subtotal Actividades</th>
+
 
                     </tr>
                 </thead>
@@ -45,12 +45,12 @@
                                 </ul>
                             </td>
                             <td>{{ entity.codigo }}</td>
-                            <td>{{ entity.cantPersonas }}</td>
+                            <td>{{ entity.huesped.cedula }}</td>
+                            <td>{{ entity.huesped.nombre }}</td>
+                            <td>{{ entity.habitacion.tipo }}</td>
                             <td>{% if entity.fechaIngreso %}{{ entity.fechaIngreso|date('d-m-Y') }}{% endif %}</td>
                             <td>{% if entity.fechaSalida %}{{ entity.fechaSalida|date('d-m-Y') }}{% endif %}</td>
-                            <td>{{ entity.totalReservacion }}</td>
-                            <td>{{ entity.subtotalServicios }}</td>
-                            <td>{{ entity.huesped.nombre }}</td>
+
 
                         </tr>
                     {% endfor %}
