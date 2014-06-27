@@ -8,3 +8,6 @@ CSEReservacionesBundle_reservacion:
 CSEReservacionesBundle_huesped:
     resource: "@CSEReservacionesBundle/Resources/config/routing/huesped.yml"
     prefix:   /huesped
+CSEReservacionesBundle_actividad:
+        resource: "@CSEReservacionesBundle/Resources/config/routing/actividad.yml"
+        prefix:   /actividad

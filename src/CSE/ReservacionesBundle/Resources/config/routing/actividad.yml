@@ -1,0 +1,30 @@
+actividad:
+    pattern:  /
+    defaults: { _controller: "CSEReservacionesBundle:Actividad:index" }
+
+actividad_show:
+    pattern:  /{id}/show
+    defaults: { _controller: "CSEReservacionesBundle:Actividad:show" }
+
+actividad_new:
+    pattern:  /new
+    defaults: { _controller: "CSEReservacionesBundle:Actividad:new" }
+
+actividad_create:
+    pattern:  /create
+    defaults: { _controller: "CSEReservacionesBundle:Actividad:create" }
+    requirements: { _method: post }
+
+actividad_edit:
+    pattern:  /{id}/edit
+    defaults: { _controller: "CSEReservacionesBundle:Actividad:edit" }
+
+actividad_update:
+    pattern:  /{id}/update
+    defaults: { _controller: "CSEReservacionesBundle:Actividad:update" }
+    requirements: { _method: post|put }
+
+actividad_delete:
+    pattern:  /{id}/delete
+    defaults: { _controller: "CSEReservacionesBundle:Actividad:delete" }
+    requirements: { _method: post|delete }

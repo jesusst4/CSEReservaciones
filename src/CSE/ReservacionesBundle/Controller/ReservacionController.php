@@ -4,11 +4,11 @@ namespace CSE\ReservacionesBundle\Controller;
 
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
-
 use CSE\ReservacionesBundle\Entity\Reservacion;
 use CSE\ReservacionesBundle\Form\ReservacionType;
-
 use CSE\ReservacionesBundle\Entity\Huesped;
+use CSE\ReservacionesBundle\Entity\AtividadesXReservacion;
+use CSE\ReservacionesBundle\Entity\ActividadRepository;
 
 /**
  * Reservacion controller.
@@ -29,6 +29,7 @@ class ReservacionController extends Controller {
                     'entities' => $entities,
         ));
     }
+
     /**
      * Creates a new Reservacion entity.
      *
@@ -68,7 +69,7 @@ class ReservacionController extends Controller {
      */
     private function createCreateForm(Reservacion $entity) {
         $form = $this->createForm(new ReservacionType(), $entity);
-        $form->add('submit', 'submit', array('label' => 'Servicios','attr'  => array('class'=>'btn'),));
+        $form->add('submit', 'submit', array('label' => 'Servicios', 'attr' => array('class' => 'btn'),));
         return $form;
     }
 
@@ -218,6 +219,45 @@ class ReservacionController extends Controller {
                         ->add('submit', 'submit', array('label' => 'Delete'))
                         ->getForm()
         ;
+    }
+
+    public function addActividadesAction($id) {
+        $em = $this->getDoctrine()->getManager();
+        
+        $entities = $em->getRepository('CSEReservacionesBundle:Actividad')->findAll();
+
+        $actividadRepo = $em->getRepository("CSEReservacionesBundle:Actividad");
+        $listaActividades = $actividadRepo->listarActividades();        
+
+        $listaActividadesCod = json_encode($listaActividades);
+
+        return $this->render('CSEReservacionesBundle:Actividad:index.html.twig', array(
+                    'entities' => $entities, 'id' => $id, 'actividades' => $listaActividadesCod
+        ));
+    }
+
+    public function saveActividadesAction(Request $request, $id) {
+        $actividades = $request->request->get("actividad");
+
+        $actividadRepo = new ActividadReposi;
+
+        $em = $this->getDoctrine()->getManager();
+        $entityReservacion = $em->getRepository('CSEReservacionesBundle:Reservacion')->find($id);
+        $cantidad = count($actividades);
+
+        foreach ($actividades as $kay => $value) {
+            $entity = new AtividadesXReservacion();
+            $entityActividad = $em->getRepository('CSEReservacionesBundle:Actividad')->find($value);
+            $entity->setActividad($entityActividad);
+            $entity->setReservacion($entityReservacion);
+            $entity->setCantPersonas($request->request->get("cantPer" . $value));
+            $entity->setSubtotal($request->request->get("cantPer" . $value) * $request->request->get("precio" . $value));
+
+            $date = $request->request->get("fecha" . $value);
+            $entity->setFecha(new \DateTime($date));
+            $em->persist($entity);
+        }
+        $em->flush();
     }
 
 }

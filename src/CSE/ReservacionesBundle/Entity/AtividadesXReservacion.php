@@ -24,7 +24,7 @@ class AtividadesXReservacion {
     /**
      * @var \DateTime
      *
-     * @ORM\Column(name="fecha", type="date")
+     * @ORM\Column(name="fecha", type="date", nullable=true)
      */
     private $fecha;
 
@@ -38,7 +38,7 @@ class AtividadesXReservacion {
     /**
      * @var string
      *
-     * @ORM\Column(name="subtotal", type="decimal", scale=2)
+     * @ORM\Column(name="subtotal", type="decimal", scale=2, nullable=true)
      */
     private $subtotal;
 

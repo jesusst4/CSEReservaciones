@@ -2,7 +2,7 @@
 
 {% block body -%}
     <div class="divContenedor">
-        <form action="{{path('reservacion_create')}}"  method="POST">
+        <form action="{{ path('reservacion_add_actividades', { 'id': 1 }) }}"  method="POST">
             <h2>Datos del Huésped</h2>
             {{form_row(form.huesped.cedula)}}
             {{form_row(form.huesped.nombre)}}

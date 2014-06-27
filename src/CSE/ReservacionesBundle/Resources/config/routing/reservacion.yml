@@ -28,3 +28,12 @@ reservacion_delete:
     pattern:  /{id}/delete
     defaults: { _controller: "CSEReservacionesBundle:Reservacion:delete" }
     requirements: { _method: post|delete }
+
+reservacion_add_actividades:
+    pattern:  /{id}/addActividades
+    defaults: { _controller: "CSEReservacionesBundle:Reservacion:addActividades" }
+
+
+reservacion_save_actividades:
+    pattern:  /{id}/saveActividades
+    defaults: { _controller: "CSEReservacionesBundle:Reservacion:saveActividades" }    
