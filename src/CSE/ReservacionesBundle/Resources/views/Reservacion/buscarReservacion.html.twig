@@ -1,0 +1,62 @@
+{% extends '::base.html.twig' %}
+
+{% block body -%}
+    <form action="{{path('reservacion_buscar')}}" method="POST">
+        <div class="divContenedor">
+            <h1 class="titulo">Busqueda de Reservaciones</h1>
+            <div class="divContenidoIzq">
+                <label class="label">Código</label>
+                <input type="text" name="txtCodigo" class="txt" value="{{codigo}}"/>
+            </div>
+            <div class="divContenidoDer">
+                <label class="label">Cliente</label>
+                <input type="text" name="txtCliente" class="txt" value="{{cliente}}"/>
+            </div>
+            <div class="divContenidoIzq">
+            </div>
+            <div class="divContenidoDer">
+                <input type="submit" name="btnBuscar" class="btnTotal" value="Buscar"/>
+            </div>
+
+            <table class="records_list table">
+                <thead>
+                    <tr>
+
+                        <th>Acciones</th>
+                        <th>Codigo</th>
+                        <th>N° de Personas</th>
+                        <th>Fecha Ingreso</th>
+                        <th>Fecha Salida</th>
+                        <th>Total Reservacion</th>
+                        <th>Subtotal Servicios</th>
+                        <th>Subtotal Actividades</th>
+
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for entity in entities %}
+                        <tr>
+                            <td>
+                                <ul>
+                                    <li>
+                                        <a href="{{ path('reservacion_show', { 'id': entity.id }) }}">Consultar</a>
+                                    </li>
+
+                                </ul>
+                            </td>
+                            <td>{{ entity.codigo }}</td>
+                            <td>{{ entity.cantPersonas }}</td>
+                            <td>{% if entity.fechaIngreso %}{{ entity.fechaIngreso|date('d-m-Y') }}{% endif %}</td>
+                            <td>{% if entity.fechaSalida %}{{ entity.fechaSalida|date('d-m-Y') }}{% endif %}</td>
+                            <td>{{ entity.totalReservacion }}</td>
+                            <td>{{ entity.subtotalServicios }}</td>
+                            <td>{{ entity.huesped.nombre }}</td>
+
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+
+        </div>
+    </form>
+{% endblock %}

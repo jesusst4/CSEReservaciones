@@ -269,3 +269,48 @@ ul{
     font-family: sans-serif;
     color: red;
 }
+
+.divContenidoIzq {
+    /*background-color:#666;/*gris*/
+    width: 470px;
+    height: auto;
+    float: left;
+    overflow: hidden;
+}
+
+.divContenidoDer {
+    /*background-color:#CCC;/*gris*/
+    width: 500px;
+    height: auto;
+    float: right;
+    overflow: hidden;
+}
+
+
+.divContIzqPeq {
+    width: 190px;
+    height: 26px;
+    float: left;
+    text-align: right;
+    padding-right: 10px;
+    /*padding-top: 4px;*/
+    margin-top: 20px;
+}
+
+.divContDerPeq {
+    width: 290px;
+    height: 30px;
+    float: left;
+    text-align: left;
+    padding-left: 10px;
+    margin-top: 20px;
+}
+
+.label{
+    display: block;
+    float: left;
+    width: 150px;
+    color: grey;
+    font-weight: bold;
+    text-align: right;
+}

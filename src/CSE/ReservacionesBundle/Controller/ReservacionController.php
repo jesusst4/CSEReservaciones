@@ -283,4 +283,16 @@ class ReservacionController extends Controller {
         return $this->redirect($this->generateUrl('reservacion'));
     }
 
+    public function buscarAction(Request $request) {
+       
+        if($request->request->get("txtCodigo") != "" || $request->request->get("txtCliente") != "" ){
+            $codigo=$request->request->get("txtCodigo");
+            $cliente=$request->request->get("txtCliente");
+            $em = $this->getDoctrine()->getManager();
+            $entity = $em->getRepository('CSEReservacionesBundle:Reservacion')->consultarReservacion($codigo,$cliente);
+             return $this->render('CSEReservacionesBundle:Reservacion:buscarReservacion.html.twig',array('codigo'=>$codigo, 'cliente'=>$cliente,'entities'=>$entity));
+        }
+        return $this->render('CSEReservacionesBundle:Reservacion:buscarReservacion.html.twig',array('codigo'=>'', 'cliente'=>'','entities'=>null));
+    }
+
 }

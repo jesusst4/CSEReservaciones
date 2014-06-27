@@ -36,3 +36,7 @@ reservacion_servicios:
 reservacion_agregarservicios:
     pattern: /{id}/agregarServicios
     defaults: {_controller: "CSEReservacionesBundle:Reservacion:agregarServicios"}
+    
+reservacion_buscar:
+    pattern: /buscar_Reservacion
+    defaults: {_controller: "CSEReservacionesBundle:Reservacion:buscar"}
