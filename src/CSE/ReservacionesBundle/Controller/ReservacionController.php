@@ -249,11 +249,10 @@ class ReservacionController extends Controller {
     public function saveActividadesAction(Request $request, $id) {
         $actividades = $request->request->get("actividad");
 
-        $actividadRepo = new ActividadReposi;
-
         $em = $this->getDoctrine()->getManager();
         $entityReservacion = $em->getRepository('CSEReservacionesBundle:Reservacion')->find($id);
         $cantidad = count($actividades);
+        $subtotalActividades = 0;
 
         foreach ($actividades as $kay => $value) {
             $entity = new AtividadesXReservacion();
@@ -262,12 +261,18 @@ class ReservacionController extends Controller {
             $entity->setReservacion($entityReservacion);
             $entity->setCantPersonas($request->request->get("cantPer" . $value));
             $entity->setSubtotal($request->request->get("cantPer" . $value) * $request->request->get("precio" . $value));
+            
+            $subtotalActividades += $request->request->get("cantPer" . $value) * $request->request->get("precio" . $value);
 
             $date = $request->request->get("fecha" . $value);
             $entity->setFecha(new \DateTime($date));
             $em->persist($entity);
         }
+        $entityReservacion->setSubtotalActividades($subtotalActividades);
+        
         $em->flush();
+
+        return $this->redirect($this->generateUrl('reservacion'));
     }
 
     public function serviciosAction($id) {
@@ -321,7 +326,7 @@ class ReservacionController extends Controller {
 
         $em->flush();
 
-        return $this->redirect($this->generateUrl('reservacion'));
+        return $this->redirect($this->generateUrl('reservacion_add_actividades', array('id' => $id)));
     }
 
     public function buscarAction(Request $request) {

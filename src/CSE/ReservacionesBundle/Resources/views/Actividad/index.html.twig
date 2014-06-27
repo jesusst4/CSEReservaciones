@@ -3,11 +3,11 @@
 {% block body -%}
     <div class="divContenedor">
         <h2>Lista de Actividades</h2>
-        <form action="{{ path('reservacion_save_actividades', { 'id': 1 })}}"  method="POST">
+        <form action="{{ path('reservacion_save_actividades', { 'id': id })}}"  method="POST">
             <table class="records_list table" id="tblActividades">
                 <thead>
                     <tr>
-                        <th>{{id}}</th>
+                        <th></th>
                         <th>Actividad</th>
                         <th>Precio</th>
                         <th>Fecha</th>
@@ -23,7 +23,7 @@
                             <td>{{ entity.tipo }}</td>
                             <td><input class="precioTable" type="text" name="precio{{entity.id}}" value="{{ entity.precio }}" readonly="true"/></td>
                             <td><input type="text" name="fecha{{entity.id}}" class="tcal precioTable" readonly="true"/></td>
-                            <td> <ul><li class="limensaje" id="errorCatidadPer{{entity.id}}"></li></ul><input class="num precioTable" type="number" id="txt{{entity.id}}" name="cantPer{{entity.id}}"/></td>
+                            <td> <ul><li class="limensaje" id="errorCatidadPer{{entity.id}}"></li></ul><input class="num precioTable" type="number" min="1" id="txt{{entity.id}}" name="cantPer{{entity.id}}"/></td>
                         </tr>
                     {% endfor %}
                 </tbody>
