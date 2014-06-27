@@ -37,3 +37,15 @@ reservacion_add_actividades:
 reservacion_save_actividades:
     pattern:  /{id}/saveActividades
     defaults: { _controller: "CSEReservacionesBundle:Reservacion:saveActividades" }    
+    
+reservacion_servicios:
+    pattern: /{id}/servicios
+    defaults: {_controller: "CSEReservacionesBundle:Reservacion:servicios"}
+    
+reservacion_agregarservicios:
+    pattern: /{id}/agregarServicios
+    defaults: {_controller: "CSEReservacionesBundle:Reservacion:agregarServicios"}
+    
+reservacion_buscar:
+    pattern: /buscar_Reservacion
+    defaults: {_controller: "CSEReservacionesBundle:Reservacion:buscar"}

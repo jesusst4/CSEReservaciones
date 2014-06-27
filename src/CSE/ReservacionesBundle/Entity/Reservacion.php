@@ -47,7 +47,9 @@ class Reservacion {
      *
      * @ORM\Column(name="cant_personas", type="smallint")
      * 
-     * @Assert\NotNull()
+     * @Assert\NotNull(
+     *      message = "Debe ingresar la cantidad de personas."
+     * )
      */
     private $cantPersonas;
 
@@ -56,7 +58,9 @@ class Reservacion {
      *
      * @ORM\Column(name="fecha_ingreso", type="date")
      * 
-     * @Assert\NotNull()
+     * @Assert\NotNull(
+     *      message = "Ingrese la fecha de ingreso."
+     * )
      * 
      */
     private $fechaIngreso;
@@ -66,16 +70,30 @@ class Reservacion {
      *
      * @ORM\Column(name="fecha_salida", type="date")
      * 
-     * @Assert\NotNull()
+     * @Assert\NotNull(
+     *    message = "Ingrese la fecha de salida."
+     * )
      */
     private $fechaSalida;
 
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="cant_dias", type="smallint")
+     * 
+     * @Assert\NotNull()
+     */
+    private $cantidadDias;
+    
+    
     /**
      * @var string
      *
      * @ORM\Column(name="total_reservacion", type="decimal", scale=2)
      * 
-     * @Assert\NotNull()
+     * @Assert\NotNull(
+     *      message = "Debe calcular el total."
+     * )
      */
     private $totalReservacion;
 
@@ -223,6 +241,29 @@ class Reservacion {
         return $this->fechaSalida;
     }
 
+    
+    /**
+     * Set cantidadDias
+     *
+     * @param integer $cantidadDias
+     * @return Reservacion
+     */
+    public function setCantidadDias($cantidadDias) {
+        $this->cantidadDias = $cantidadDias;
+
+        return $this;
+    }
+
+    /**
+     * Get cantidadDias
+     *
+     * @return integer 
+     */
+    public function getCantidadDias() {
+        return $this->cantidadDias;
+    }
+    
+    
     /**
      * Set totalReservacion
      *

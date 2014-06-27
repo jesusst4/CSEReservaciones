@@ -4,13 +4,13 @@
     <div class="divContenedor">
         <h1 class="titulo">Lista de Reservaciones</h1>
         
-        {{"Se puede"}}
-        <table class="records_list">
+        
+        <table class="records_list table">
             <thead>
                 <tr>
-                    <th>Id</th>
+
                     <th>Codigo</th>
-                    <th>Cantidad de Personas</th>
+                    <th>N° de Personas</th>
                     <th>Fecha Ingreso</th>
                     <th>Fecha Salida</th>
                     <th>Total Reservacion</th>
@@ -22,22 +22,20 @@
             <tbody>
                 {% for entity in entities %}
                     <tr>
-                        <td><a href="{{ path('reservacion_show', { 'id': entity.id }) }}">{{ entity.id }}</a></td>
+
                         <td>{{ entity.codigo }}</td>
                         <td>{{ entity.cantPersonas }}</td>
-                        <td>{% if entity.fechaIngreso %}{{ entity.fechaIngreso|date('Y-m-d H:i:s') }}{% endif %}</td>
-                        <td>{% if entity.fechaSalida %}{{ entity.fechaSalida|date('Y-m-d H:i:s') }}{% endif %}</td>
+                        <td>{% if entity.fechaIngreso %}{{ entity.fechaIngreso|date('d-m-Y') }}{% endif %}</td>
+                        <td>{% if entity.fechaSalida %}{{ entity.fechaSalida|date('d-m-Y') }}{% endif %}</td>
                         <td>{{ entity.totalReservacion }}</td>
                         <td>{{ entity.subtotalServicios }}</td>
                         <td>{{ entity.subtotalActividades }}</td>
                         <td>
                             <ul>
                                 <li>
-                                    <a href="{{ path('reservacion_show', { 'id': entity.id }) }}">show</a>
+                                    <a href="{{ path('reservacion_show', { 'id': entity.id }) }}">Consultar</a>
                                 </li>
-                                <li>
-                                    <a href="{{ path('reservacion_edit', { 'id': entity.id }) }}">edit</a>
-                                </li>
+                                
                             </ul>
                         </td>
                     </tr>
@@ -45,12 +43,6 @@
             </tbody>
         </table>
 
-        {#<ul>
-            <li>
-                <a href="{{ path('reservacion_new') }}">
-                    Create a new entry
-                </a>
-            </li>
-        </ul>#}
+      
     </div>
 {% endblock %}

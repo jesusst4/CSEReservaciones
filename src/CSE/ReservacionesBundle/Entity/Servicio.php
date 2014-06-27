@@ -10,8 +10,8 @@ use Doctrine\ORM\Mapping as ORM;
  * @ORM\Table()
  * @ORM\Entity(repositoryClass="CSE\ReservacionesBundle\Entity\ServicioRepository")
  */
-class Servicio
-{
+class Servicio {
+
     /**
      * @var integer
      *
@@ -29,13 +29,19 @@ class Servicio
     private $tipo;
 
     /**
-     * @var string
+     * @var integer
      *
      * @ORM\Column(name="precio", type="decimal", scale=2)
      */
     private $precio;
 
-    
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="requiere_cant", type="smallint")
+     */
+    private $requiereCant;
+
     /**
      * @ORM\OneToMany(targetEntity="ServiciosXReservacion", mappedBy="servicio", cascade={"all"})
      * */
@@ -46,8 +52,7 @@ class Servicio
      *
      * @return integer 
      */
-    public function getId()
-    {
+    public function getId() {
         return $this->id;
     }
 
@@ -57,8 +62,7 @@ class Servicio
      * @param string $tipo
      * @return Servicio
      */
-    public function setTipo($tipo)
-    {
+    public function setTipo($tipo) {
         $this->tipo = $tipo;
 
         return $this;
@@ -69,19 +73,17 @@ class Servicio
      *
      * @return string 
      */
-    public function getTipo()
-    {
+    public function getTipo() {
         return $this->tipo;
     }
 
     /**
      * Set precio
      *
-     * @param string $precio
+     * @param integer $precio
      * @return Servicio
      */
-    public function setPrecio($precio)
-    {
+    public function setPrecio($precio) {
         $this->precio = $precio;
 
         return $this;
@@ -90,10 +92,31 @@ class Servicio
     /**
      * Get precio
      *
-     * @return string 
+     * @return integer 
      */
-    public function getPrecio()
-    {
+    public function getPrecio() {
         return $this->precio;
     }
+
+    /**
+     * Set requiereCant
+     *
+     * @param string $requiereCant
+     * @return Servicio
+     */
+    public function setRequiereCant($requiereCant) {
+        $this->requiereCant = $requiereCant;
+
+        return $this;
+    }
+
+    /**
+     * Get requiereCant
+     *
+     * @return string 
+     */
+    public function getRequiereCant() {
+        return $this->requiereCant;
+    }
+
 }

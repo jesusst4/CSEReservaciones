@@ -4,6 +4,7 @@ namespace CSE\ReservacionesBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use \Doctrine\Common\Collections\ArrayCollection;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * Huesped
@@ -11,12 +12,12 @@ use \Doctrine\Common\Collections\ArrayCollection;
  * @ORM\Table()
  * @ORM\Entity(repositoryClass="CSE\ReservacionesBundle\Entity\HuespedRepository")
  */
-class Huesped
-{    
+class Huesped {
+
     public function __construct() {
-	$this->reservaciones = new ArrayCollection();
+        $this->reservaciones = new ArrayCollection();
     }
-        
+
     /**
      * @var integer
      *
@@ -30,6 +31,10 @@ class Huesped
      * @var string
      *
      * @ORM\Column(name="cedula", type="string", length=20)
+     * 
+     * * @Assert\NotNull(
+     *      message = "Debe ingresar la cédula."
+     * )
      */
     private $cedula;
 
@@ -37,6 +42,10 @@ class Huesped
      * @var string
      *
      * @ORM\Column(name="nombre", type="string", length=45)
+     * 
+     * @Assert\NotNull(
+     *      message = "Debe ingresar el nombre."
+     * )
      */
     private $nombre;
 
@@ -44,6 +53,10 @@ class Huesped
      * @var string
      *
      * @ORM\Column(name="correo", type="string", length=50)
+     * 
+     * @Assert\NotNull(
+     *      message = "Debe ingresar el correo."
+     * )
      */
     private $correo;
 
@@ -51,9 +64,13 @@ class Huesped
      * @var integer
      *
      * @ORM\Column(name="celular", type="integer")
+     * 
+     * @Assert\NotNull(
+     *      message = "Debe ingresar el celular."
+     * )
      */
     private $celular;
-    
+
     /**
      *
      * @ORM\OneToMany(targetEntity="Reservacion", mappedBy="huesped")
@@ -65,8 +82,7 @@ class Huesped
      *
      * @return integer 
      */
-    public function getId()
-    {
+    public function getId() {
         return $this->id;
     }
 
@@ -76,8 +92,7 @@ class Huesped
      * @param string $cedula
      * @return Huesped
      */
-    public function setCedula($cedula)
-    {
+    public function setCedula($cedula) {
         $this->cedula = $cedula;
 
         return $this;
@@ -88,8 +103,7 @@ class Huesped
      *
      * @return string 
      */
-    public function getCedula()
-    {
+    public function getCedula() {
         return $this->cedula;
     }
 
@@ -99,8 +113,7 @@ class Huesped
      * @param string $nombre
      * @return Huesped
      */
-    public function setNombre($nombre)
-    {
+    public function setNombre($nombre) {
         $this->nombre = $nombre;
 
         return $this;
@@ -111,8 +124,7 @@ class Huesped
      *
      * @return string 
      */
-    public function getNombre()
-    {
+    public function getNombre() {
         return $this->nombre;
     }
 
@@ -122,8 +134,7 @@ class Huesped
      * @param string $correo
      * @return Huesped
      */
-    public function setCorreo($correo)
-    {
+    public function setCorreo($correo) {
         $this->correo = $correo;
 
         return $this;
@@ -134,8 +145,7 @@ class Huesped
      *
      * @return string 
      */
-    public function getCorreo()
-    {
+    public function getCorreo() {
         return $this->correo;
     }
 
@@ -145,8 +155,7 @@ class Huesped
      * @param integer $celular
      * @return Huesped
      */
-    public function setCelular($celular)
-    {
+    public function setCelular($celular) {
         $this->celular = $celular;
 
         return $this;
@@ -157,18 +166,17 @@ class Huesped
      *
      * @return integer 
      */
-    public function getCelular()
-    {
+    public function getCelular() {
         return $this->celular;
     }
-    
+
     /**
      * Get reservaciones
      *
      * @return array
      */
-    public function getReservaciones()
-    {
+    public function getReservaciones() {
         return $this->reservaciones;
     }
+
 }
