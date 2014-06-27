@@ -1,0 +1,41 @@
+{% extends '::base.html.twig' %}
+
+{% block body -%}
+    <div class="divContenedor">
+        <h2>Lista de Actividades</h2>
+        <form action="{{ path('reservacion_save_actividades', { 'id': id })}}"  method="POST">
+            <table class="records_list table" id="tblActividades">
+                <thead>
+                    <tr>
+                        <th></th>
+                        <th>Actividad</th>
+                        <th>Precio</th>
+                        <th>Fecha</th>
+                        <th>Cantidad de Personas</th>
+                    </tr>
+                <input type="hidden" name="actividades[]" id="actividades" value="{{actividades}}"/>
+                
+                </thead>
+                <tbody>
+                    {% for entity in entities %}
+                        <tr>
+                            <td><input name="actividad[]" type="checkbox" value="{{entity.id}}" id="chx{{entity.id}}"/></td>
+                            <td>{{ entity.tipo }}</td>
+                            <td><input class="precioTable" type="text" name="precio{{entity.id}}" value="{{ entity.precio }}" readonly="true"/></td>
+                            <td><input type="text" name="fecha{{entity.id}}" class="tcal precioTable" readonly="true"/></td>
+                            <td> <ul><li class="limensaje" id="errorCatidadPer{{entity.id}}"></li></ul><input class="num precioTable" type="number" min="1" id="txt{{entity.id}}" name="cantPer{{entity.id}}"/></td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+            <label class="label">Total por Actividades</label>
+            <input class="txtTotal " type="text" name="txtTotalActividades" id="txtTotalActividades" readonly=""/>
+            <input type="submit" name="agregarActividades" id="agregarActividades" value="Agregar Actividades" class="btnTotal"/>
+            <input type="button" name="calTotal" id="calTotalA" value="Calcular Total" class="btnTotal"/>
+        </form>        
+
+
+
+    </div>
+
+{% endblock %}

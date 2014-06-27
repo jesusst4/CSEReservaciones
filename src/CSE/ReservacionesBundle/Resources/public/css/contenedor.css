@@ -259,8 +259,12 @@ a{
 #tcalGrid td.tcalOtherMonth { color: cadetblue; }
 #tcalGrid td.tcalWeekend { background-color:lightgreen; }
 #tcalGrid td.tcalToday { border: 1px solid green; }
-#tcalGrid td.tcalSelected { background-color:forestgreen; }		
+#tcalGrid td.tcalSelected { background-color:forestgreen; }	
 
+.precioTable{
+    width: 100px;    
+    
+}
 ul{
     font-size: 14px;
     font-family: sans-serif;
