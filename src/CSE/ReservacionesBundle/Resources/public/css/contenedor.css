@@ -137,6 +137,20 @@ a{
     margin-top: 7px;
 }
 
+.btnBuscar{
+    float: right;
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    border-radius: 5px;
+    border: 2px solid blue;
+    background-color: blue;
+    font-family: sans-serif;
+    font-size: 14px;
+    color: #ffffff;
+    width: auto;
+    height: 30px;
+    margin-right:  500px;
+}
 .txtTotal{
     border:2px solid lightsteelblue;
     font-family:sans-serif;
@@ -314,4 +328,11 @@ ul{
     color: grey;
     font-weight: bold;
     text-align: right;
+}
+
+.labelTotal{
+    display: block;
+    color: black;
+    font-weight: bold;
+    font-size: 20px;
 }

@@ -261,7 +261,7 @@ class ReservacionController extends Controller {
             $entity->setReservacion($entityReservacion);
             $entity->setCantPersonas($request->request->get("cantPer" . $value));
             $entity->setSubtotal($request->request->get("cantPer" . $value) * $request->request->get("precio" . $value));
-            
+
             $subtotalActividades += $request->request->get("cantPer" . $value) * $request->request->get("precio" . $value);
 
             $date = $request->request->get("fecha" . $value);
@@ -269,7 +269,7 @@ class ReservacionController extends Controller {
             $em->persist($entity);
         }
         $entityReservacion->setSubtotalActividades($subtotalActividades);
-        
+
         $em->flush();
 
         return $this->redirect($this->generateUrl('reservacion'));
@@ -339,6 +339,54 @@ class ReservacionController extends Controller {
             return $this->render('CSEReservacionesBundle:Reservacion:buscarReservacion.html.twig', array('codigo' => $codigo, 'cliente' => $cliente, 'entities' => $entity));
         }
         return $this->render('CSEReservacionesBundle:Reservacion:buscarReservacion.html.twig', array('codigo' => '', 'cliente' => '', 'entities' => null));
+    }
+
+    public function reporteReservacionesAction(Request $request) {
+        $em = $this->getDoctrine()->getManager();
+        $habitaciones = $em->getRepository('CSEReservacionesBundle:Habitacion')->findAll();
+
+        if ($request->request->get("txtTipoHabitacion") != null) {
+            
+            $em = $this->getDoctrine()->getManager();
+            $reservaciones = $em->getRepository('CSEReservacionesBundle:Reservacion')->reporteReservaciones($request->request->get("txtTipoHabitacion"));
+            $total = $em->getRepository('CSEReservacionesBundle:Reservacion')->totalReporte($request->request->get("txtTipoHabitacion"));
+            $total1 = $total[0];
+            $totalRe = $total1['total'];
+            return $this->render('CSEReservacionesBundle:Reservacion:reporteReservaciones.html.twig', array('habitaciones' => $habitaciones, 'reservaciones' => $reservaciones, 'total' => $totalRe));
+            
+        } else {
+            
+            $total = $em->getRepository('CSEReservacionesBundle:Reservacion')->totalReservaciones();
+            $total1 = $total[0];
+            $totalRe = $total1['total'];
+            $reservaciones = $em->getRepository('CSEReservacionesBundle:Reservacion')->findAll();
+            return $this->render('CSEReservacionesBundle:Reservacion:reporteReservaciones.html.twig', array('habitaciones' => $habitaciones, 'reservaciones' => $reservaciones, 'total' => $totalRe));
+            
+        }
+    }
+    
+    public function reporteGananciasAction(Request $request) {
+        $em = $this->getDoctrine()->getManager();
+        $habitaciones = $em->getRepository('CSEReservacionesBundle:Habitacion')->findAll();
+
+        if ($request->request->get("txtTipoHabitacion") != null) {
+            
+            $em = $this->getDoctrine()->getManager();
+            $reservaciones = $em->getRepository('CSEReservacionesBundle:Reservacion')->reporteReservaciones($request->request->get("txtTipoHabitacion"));
+            $total = $em->getRepository('CSEReservacionesBundle:Reservacion')->totalReporte($request->request->get("txtTipoHabitacion"));
+            $total1 = $total[0];
+            $totalRe = $total1['total'];
+            return $this->render('CSEReservacionesBundle:Reservacion:reporteGanancias.html.twig', array('habitaciones' => $habitaciones, 'reservaciones' => $reservaciones, 'total' => $totalRe));
+            
+        } else {
+            
+            $total = $em->getRepository('CSEReservacionesBundle:Reservacion')->totalReservaciones();
+            $total1 = $total[0];
+            $totalRe = $total1['total'];
+            $reservaciones = $em->getRepository('CSEReservacionesBundle:Reservacion')->findAll();
+            return $this->render('CSEReservacionesBundle:Reservacion:reporteGanancias.html.twig', array('habitaciones' => $habitaciones, 'reservaciones' => $reservaciones, 'total' => $totalRe));
+            
+        }
     }
 
 }

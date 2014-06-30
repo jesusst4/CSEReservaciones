@@ -14,10 +14,6 @@ use Doctrine\DBAL\Platforms;
 class ReservacionRepository extends EntityRepository {
 
     public function consultarReservacion($codigo, $cliente) {
-
-        //SELECT * FROM `reservaciones`  r inner join `tipo_habitacion`  th 
-        //on r.`tipo_habitacion`=th.capacidad WHERE (r.`idReservacion` like '$pCodigo%') 
-        //AND (r.`nombre_completo` like '%$pNombre%' or '%$pNombre%' is null)
         if ($codigo == "") {
             $codigo = null;
         }
@@ -26,6 +22,24 @@ class ReservacionRepository extends EntityRepository {
                     'codigo' => $codigo,
                     'cliente' => "%" . $cliente . "%",
                 ))->getResult();
+    }
+    
+    public function reporteReservaciones($tipoHabitacion) {
+        return $this->getEntityManager()
+                ->createQuery("SELECT r FROM CSEReservacionesBundle:Reservacion r JOIN r.habitacion h WHERE h.id = :tipoHabitacion")
+                ->setParameter("tipoHabitacion", $tipoHabitacion)->getResult();  
+    }
+    
+    public function  totalReporte($tipoHabitacion){
+        return $this->getEntityManager()
+                ->createQuery("SELECT SUM(r.totalReservacion + r.subtotalServicios + r.subtotalActividades)AS total FROM CSEReservacionesBundle:Reservacion r JOIN r.habitacion h WHERE h.id = :tipoHabitacion")
+                ->setParameter("tipoHabitacion", $tipoHabitacion)->getResult(); 
+    }
+    
+       public function  totalReservaciones(){
+        return $this->getEntityManager()
+                ->createQuery("SELECT SUM(r.totalReservacion + r.subtotalServicios + r.subtotalActividades)AS total FROM CSEReservacionesBundle:Reservacion r JOIN r.habitacion h")
+                ->getResult(); 
     }
 
 }

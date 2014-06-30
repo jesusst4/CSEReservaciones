@@ -49,3 +49,11 @@ reservacion_agregarservicios:
 reservacion_buscar:
     pattern: /buscar_Reservacion
     defaults: {_controller: "CSEReservacionesBundle:Reservacion:buscar"}
+    
+reservacion_reservaciones:
+    pattern: /reporte_reservaciones
+    defaults: {_controller: "CSEReservacionesBundle:Reservacion:reporteReservaciones"}
+
+reservacion_ganancias:
+    pattern: /reporte_ganancias
+    defaults: {_controller: "CSEReservacionesBundle:Reservacion:reporteGanancias"}

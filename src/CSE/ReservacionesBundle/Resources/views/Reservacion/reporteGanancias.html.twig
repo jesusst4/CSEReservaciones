@@ -1,0 +1,59 @@
+{% extends '::base.html.twig' %}
+
+{% block body -%}
+
+    <div class="divContenedor">
+        <form method="POST" action="{{path('reservacion_reservaciones')}}">
+            <h1 class="titulo">Lista de Reservaciones</h1>
+            <div style="margin-top: 8px">
+                <label class="label">Tipo de Habitación</label>
+                <select class="txt" name="txtTipoHabitacion">
+                    {% for entity in habitaciones %}
+                        <option value="{{entity.id}}">{{entity.tipo}}</option>
+                    {% endfor%}
+                </select>
+                <input type="submit" name="btnBuscar" value="Buscar" class="btnBuscar"/>
+            </div>
+        </form>
+        <table class="records_list table">
+            <thead>
+                <tr>
+                    <th>Acciones</th>
+                    <th>Codigo</th>
+                    <th>Total Habitación</th>
+                    <th>Total Servicios</th>
+                    <th>Total Actividades</th>
+                    <th>Total Reservacion</th>
+
+                </tr>
+            </thead>
+            <tbody>
+                {% for entity in reservaciones if reservaciones %}
+                    <tr>
+                        <td>
+                            <ul>
+                                <li>
+                                    <a href="{{ path('reservacion_show', { 'id': entity.id }) }}">Consultar</a>
+                                </li>
+
+                            </ul>
+                        </td>
+                        <td>{{ entity.codigo }}</td>
+                        <td>{{ entity.totalReservacion }}</td>
+                        <td>{{ entity.subtotalServicios }}</td>
+                        <td>{{ entity.subtotalActividades}}</td>
+                        <td>{{ entity.totalReservacion + entity.subtotalServicios + entity.subtotalActividades}}
+                        </td>
+
+                    </tr>
+                {% endfor %}
+                <tr>
+                    <td><label class="labelTotal">Total</label></td><td><label class="labelTotal">{{total}}</label></td>
+                </tr>
+            </tbody>
+        </table>
+
+
+    </div>
+{% endblock %}
+
