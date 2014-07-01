@@ -11,3 +11,7 @@ CSEReservacionesBundle_huesped:
 CSEReservacionesBundle_actividad:
         resource: "@CSEReservacionesBundle/Resources/config/routing/actividad.yml"
         prefix:   /actividad
+        
+principal:
+    pattern:  /home
+    defaults: { _controller: FrameworkBundle:Template:template, template:  'CSEReservacionesBundle:static:principal.html.twig' }

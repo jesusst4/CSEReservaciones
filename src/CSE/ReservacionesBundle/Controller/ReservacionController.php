@@ -3,6 +3,7 @@
 namespace CSE\ReservacionesBundle\Controller;
 
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use CSE\ReservacionesBundle\Entity\Reservacion;
 use CSE\ReservacionesBundle\Form\ReservacionType;
@@ -114,11 +115,14 @@ class ReservacionController extends Controller {
             throw $this->createNotFoundException('Unable to find Reservacion entity.');
         }
 
-        $deleteForm = $this->createDeleteForm($id);
+        $servicios=$em->getRepository('CSEReservacionesBundle:ServiciosXReservacion')->serviciosXReservacion($id);
+        $actividades=$em->getRepository('CSEReservacionesBundle:AtividadesXReservacion')->actividadesXReservacion($id);
 
         return $this->render('CSEReservacionesBundle:Reservacion:show.html.twig', array(
                     'entity' => $entity,
-                    'delete_form' => $deleteForm->createView(),));
+                    'servicios'=> $servicios,
+                    'actividades'=>$actividades
+            ));
     }
 
     /**
@@ -196,11 +200,7 @@ class ReservacionController extends Controller {
      * Deletes a Reservacion entity.
      *
      */
-    public function deleteAction(Request $request, $id) {
-        $form = $this->createDeleteForm($id);
-        $form->handleRequest($request);
-
-        if ($form->isValid()) {
+    public function deleteAction($id) {
             $em = $this->getDoctrine()->getManager();
             $entity = $em->getRepository('CSEReservacionesBundle:Reservacion')->find($id);
 
@@ -210,9 +210,8 @@ class ReservacionController extends Controller {
 
             $em->remove($entity);
             $em->flush();
-        }
-
-        return $this->redirect($this->generateUrl('reservacion'));
+        
+        return $this->redirect($this->generateUrl('principal'));
     }
 
     /**
@@ -225,11 +224,12 @@ class ReservacionController extends Controller {
     private function createDeleteForm($id) {
         return $this->createFormBuilder()
                         ->setAction($this->generateUrl('reservacion_delete', array('id' => $id)))
-                        ->setMethod('DELETE')
-                        ->add('submit', 'submit', array('label' => 'Delete'))
+                        ->setMethod('GET')
+                        ->add('submit', 'submit', array('label' => 'Eliminar','attr' => array('class' => 'btnTotal'), ))
                         ->getForm()
         ;
     }
+    
 
     public function addActividadesAction($id) {
         $em = $this->getDoctrine()->getManager();
@@ -251,7 +251,6 @@ class ReservacionController extends Controller {
 
         $em = $this->getDoctrine()->getManager();
         $entityReservacion = $em->getRepository('CSEReservacionesBundle:Reservacion')->find($id);
-        $cantidad = count($actividades);
         $subtotalActividades = 0;
 
         foreach ($actividades as $kay => $value) {
@@ -272,7 +271,7 @@ class ReservacionController extends Controller {
 
         $em->flush();
 
-        return $this->redirect($this->generateUrl('reservacion'));
+        return $this->redirect($this->generateUrl('principal'));
     }
 
     public function serviciosAction($id) {
@@ -302,8 +301,6 @@ class ReservacionController extends Controller {
         foreach ($servicios as $value) {
             $entityServicio = $em->getRepository('CSEReservacionesBundle:Servicio')->find($value);
             if ($entityServicio->getRequiereCant() == 1) {
-                $cantidadPer = $request->request->get("canPersonas" . $value);
-//                if ($cantidadPer != "") {
                 $entity = new ServiciosXReservacion();
 
                 $entity->setServicio($entityServicio);
@@ -312,18 +309,14 @@ class ReservacionController extends Controller {
 
                 $entity->setSubtotal($request->request->get("canPersonas" . $value) * $entityServicio->getPrecio());
                 $em->persist($entity);
-//                }
             } else {
                 $entity = new ServiciosXReservacion();
-
                 $entity->setServicio($entityServicio);
                 $entity->setReservacion($entityReservacion);
                 $entity->setSubtotal($entityServicio->getPrecio());
                 $em->persist($entity);
             }
         }
-
-
         $em->flush();
 
         return $this->redirect($this->generateUrl('reservacion_add_actividades', array('id' => $id)));
@@ -387,6 +380,13 @@ class ReservacionController extends Controller {
             return $this->render('CSEReservacionesBundle:Reservacion:reporteGanancias.html.twig', array('habitaciones' => $habitaciones, 'reservaciones' => $reservaciones, 'total' => $totalRe));
             
         }
+    }
+    
+    public function envioReservacionAction($id) {
+        $this->get('enviarEmailServices')->enviarReservacion($id);
+
+        return $this->redirect($this->generateUrl('principal'));
+        
     }
 
 }

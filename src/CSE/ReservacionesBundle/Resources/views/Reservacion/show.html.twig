@@ -2,56 +2,156 @@
 
 {% block body -%}
     <div class="divContenedor">
-        <h2>Reservación</h2>
-        <table class="record_properties">
+        <table class="record_properties" style="margin-top: 15px;">
             <tbody>
                 <tr>
-                    <th>Id</th>
-                    <td>{{ entity.id }}</td>
+                    <td></td>
+                    <td style=" width: 400px;">
+                        <label class="labelTotal" style="padding-left: 150px; text-align: center; margin-top: 40px;">Datos Personales</label>
+                    </td>
+                    <td></td>
+                </tr>
+
+                <tr>
+                    <th class="labelNegr"><label>Cédula</label></th>
+                    <td class="labelShow">{{ entity.huesped.cedula }}</td>
+
+                    <th class="labelNegr"><label>Email</label></th>
+                    <td class="labelShow">{{ entity.huesped.correo }}</td>
+                </tr>
+
+                <tr>
+                    <th class="labelNegr"><label>Nombre Completo</label></th>
+                    <td class="labelShow">{{ entity.huesped.nombre }}</td>
+
+                    <th class="labelNegr"><label>Teléfono</label></th>
+                    <td class="labelShow">{{ entity.huesped.celular }}</td>
+                </tr>
+
+                <tr>
+                    <td></td>
+                    <td style=" width: 400px;">
+                        <label class="labelTotal" style="padding-left: 150px;text-align: center; margin-top: 40px;">Datos Reservación</label>
+                    </td>
+                    <td></td>
                 </tr>
                 <tr>
-                    <th>Codigo</th>
-                    <td>{{ entity.codigo }}</td>
+                    <th class="labelNegr"><label>Código Reservación</label></th>
+                    <td class="labelShow">{{ entity.codigo }}</td>
+
+                    <th class="labelNegr"><label>Fecha Ingreso</label></th>
+                    <td class="labelShow">{{ entity.fechaIngreso|date('d-m-Y') }}</td>
+
+
+                </tr>
+
+                <tr>      
+                    <th class="labelNegr"><label >Tipo de Habitación</label></th>
+                    <td class="labelShow">{{ entity.habitacion.tipo }}</td>
+
+                    <th class="labelNegr"><label>Fecha Salida</label></th>
+                    <td class="labelShow">{{ entity.fechaSalida|date('d-m-Y') }}</td>
                 </tr>
                 <tr>
-                    <th>Cantpersonas</th>
-                    <td>{{ entity.cantPersonas }}</td>
+                    <th class="labelNegr"><label>Cantidad de Personas</label></th>
+                    <td class="labelShow">{{ entity.cantPersonas }}</td>
+
+                    <th class="labelNegr"><label>Total Habitación</label></th>
+                    <td class="labelShow">{{ entity.totalReservacion }}</td>
                 </tr>
-                <tr>
-                    <th>Fechaingreso</th>
-                    <td>{{ entity.fechaIngreso|date('Y-m-d H:i:s') }}</td>
+
+
+            </tbody>
+        </table>     
+
+        <table class="table">
+            <thead>
+                <tr>      
+                    <td style=" width: 1000px;">
+                        <label class="labelTotal" style="padding-left: 350px; text-align: center; margin-top: 40px;">
+                            Servicios Seleccionados
+                        </label>
+                    </td>   
                 </tr>
+
                 <tr>
-                    <th>Fechasalida</th>
-                    <td>{{ entity.fechaSalida|date('Y-m-d H:i:s') }}</td>
+                    <th>Servicio</th>
+                    <th>Cantidad de personas</th>
                 </tr>
+
+            </thead>
+            <tbody>
+                {% for entity in servicios %}
+                    <tr>
+                        <td>{{entity.getServicio().tipo}}</td>
+                        {% if entity.cantPersonas== null %}
+                            <td>No posee</td>
+                        {%else%}
+                            <td>{{entity.cantPersonas}}</td>
+                        {% endif%}
+                    </tr>
+                {% endfor%}
+
+            </tbody>
+        </table>
+
+        <table>
+            <tbody>
                 <tr>
-                    <th>Totalreservacion</th>
-                    <td>{{ entity.totalReservacion }}</td>
+                    <th class="labelNegr"><label>Total Servicios</label></th>
+                    <td class="labelShow"><input type="text" class="txtTotal" name="totalServicios" readonly="true" value="{{entity.subtotalServicios}}"/></td>
                 </tr>
-                <tr>
-                    <th>Subtotalservicios</th>
-                    <td>{{ entity.subtotalServicios }}</td>
+            </tbody>
+        </table>
+        <table class="table">
+            <thead>
+                <tr>      
+                    <td style=" width: 1000px;">
+                        <label class="labelTotal" style="padding-left: 350px; text-align: center; margin-top: 40px;">
+                            Actividades Seleccionadas
+                        </label>
+                    </td>   
                 </tr>
+
                 <tr>
-                    <th>Subtotalactividades</th>
-                    <td>{{ entity.subtotalActividades }}</td>
+                    <th>Actividad</th>
+                    <th>Cantidad de personas</th>
+                    <th>Fecha</th>
+                </tr>
+
+            </thead>
+            <tbody>
+                {% for entity in actividades %}
+                    <tr>
+                        <td>{{entity.getActividad().tipo}}</td>
+
+                        <td>{{entity.cantPersonas}}</td>
+                        <td>{{entity.fecha|date('d-m-Y')}}</td>
+
+                    </tr>
+                {% endfor%}
+             
+            </tbody>
+        </table>
+        <table>
+            <tbody>
+                <tr>
+                    <th class="labelNegr"><label>Total Actividades</label></th>
+                    <td class="labelShow"><input type="text" class="txtTotal" name="totalServicios" readonly="true" value="{{entity.subtotalActividades}}"/></td>
                 </tr>
             </tbody>
         </table>
 
-        <ul class="record_actions">
-            <li>
-                <a href="{{ path('reservacion') }}">
-                    Back to the list
-                </a>
-            </li>
-            <li>
-                <a href="{{ path('reservacion_edit', { 'id': entity.id }) }}">
-                    Editar
-                </a>
-            </li>
-            <li>{{ form(delete_form) }}</li>
-        </ul>
+        <a href="{{ path('reservacion_enviarEmail', { 'id': entity.id }) }}" >
+            <input  type="button"  value="Enviar" class="btn" style="margin-left: 100px; margin-top: 50px; margin-bottom: 20px;"/>
+        </a>
+
+        <a href="{{ path('reservacion_edit', { 'id': entity.id }) }}" >
+            <input  type="button"  value="Modificar" class="btn" style="margin-left: 100px; margin-top: 50px; margin-bottom: 20px;"/>
+        </a>
+        <a href="{{ path('reservacion_delete', { 'id': entity.id }) }}" >
+            <input  type="button"  value="Eliminar" class="btn" style="margin-top: 50px; margin-bottom: 20px;"/>
+        </a>
+
     </div>
 {% endblock %}

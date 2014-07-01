@@ -12,4 +12,7 @@ use Doctrine\ORM\EntityRepository;
  */
 class AtividadesXReservacionRepository extends EntityRepository
 {
+     public function actividadesXReservacion($id) {
+         return $this->getEntityManager()->createQuery("SELECT  ar FROM CSEReservacionesBundle:AtividadesXReservacion ar JOIN ar.reservacion r WHERE r.id = :id ")->setParameter('id', $id)->getResult();
+    }
 }

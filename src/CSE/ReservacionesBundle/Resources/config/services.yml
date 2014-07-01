@@ -1,7 +1,11 @@
 parameters:
     reservacionesServices.class: CSE\ReservacionesBundle\Services\ReservacionesServices
+    enviarEmailServices.class: CSE\ReservacionesBundle\Services\EnviarReservacionServices
 
 services:
     reservacionesServices:
         class: %reservacionesServices.class%
         arguments: [@doctrine]
+    enviarEmailServices:
+        class: %enviarEmailServices.class%
+        arguments: [@doctrine, @mailer]
