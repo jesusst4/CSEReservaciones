@@ -1,0 +1,28 @@
+{% extends '::base.html.twig' %}
+
+{% block body -%}
+ <body>
+        <div class="divContenedor">
+            {% image '@CSEReservacionesBundle/Resources/public/images/brisas-p.jpg' %}
+            <img class="imagen1" src="{{ asset_url }}" alt="banner"/>
+            {% endimage %}
+            <p class="divParrafoDer">Hotel Brisas del Pacífico es el lugar perfecto para familias y parejas que buscan unas vacaciones relajantes en una linda playa tranquila. Para hospedarse ofrecemos nuestros bungalows frente a la playa, o una grande habitación moderna con balcón y una vista magnífica al mar.
+
+                Pase un día tranquilo en la playa, va a nadar, bucear o pescar, visita uno de los atractivos naturales cercanos, o simplemente relajese en nuestro hotel y disfrute de las comodidades que ofrecemos para nuestros huéspedes.
+                Hotel Brisas del Pacifico cuenta con dos grandes piscinas, uno se encuentra frente al mar y el otro arriba, de donde se disfruta de vistas panorámicas al mar y atardeceres románticas.
+                Somos un hotel mediano pero grandes profesionales del turismo que le aseguramos una placentera estadía brindándole con nuestra atención personalizada las amenidades que usted esperaría en un hotel de lujo.
+            </p><br><br>
+            
+            <p class="divParrafoIzq">
+                Hotel Brisas del Pacífico tiene una de las mejores ubicaciones en la playa que se puede encontrar en Costa Rica. Relájese en una silla de playa en la arena fina y blanca de Playa Samara, cuya calma, bahía protegida es seguro para bañarse y nadar. Caminando por solamente 5 minutos 
+                en la playa se llega en el centro de Samara, donde se encuentran bares, restaurantes y tiendas.<br><br>
+                
+
+                "Descubrí un diamante en bruto! Las Brisas de Samara tiene todas las comodidades de un hotel de lujo y cuenta con excelentes tarifas. Lo mejor de todo: estamos frente a la playa!"
+            </p>
+            {% image '@CSEReservacionesBundle/Resources/public/images/hotel.jpg' %}
+            <img class="imagen1" src="{{ asset_url }}" alt="banner"/>
+            {% endimage %}
+        </div>
+    </body>
+{% endblock%}

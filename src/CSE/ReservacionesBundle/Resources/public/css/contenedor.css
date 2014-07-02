@@ -25,7 +25,7 @@ and open the template in the editor.
 .table{
     margin-top: 20px;
     font-family: sans-serif;
-    border-top: 1px solid #5eb5e0;
+    /*border-top: 1px solid #5eb5e0;*/
     border-collapse: collapse;
     width: 100%;
     margin-bottom: 1em;
@@ -94,10 +94,11 @@ and open the template in the editor.
     border-radius: 5px;
 }
 
-label{
+label {
     font-family:sans-serif;
     font-size:16px; 
     margin-right: 8px;
+
 
 }
 
@@ -105,7 +106,6 @@ label{
 form div { padding: 7px; }
 form div label{display: block; float: left; width: 150px;color: grey; font-weight: bold;}
 select:focus, textarea:focus{background-color: #FFFDD4;}
-/*select:hover, textarea:hover, input:hover{background-color: lightsteelblue;}*/
 
 h2{
     font-family: sans-serif;
@@ -123,18 +123,28 @@ a{
 }
 
 .btn{
-    float: right;
-    -webkit-border-radius: 5px;
-    -moz-border-radius: 5px;
-    border-radius: 5px;
+    /*    float: right;
+        -webkit-border-radius: 5px;
+        -moz-border-radius: 5px;
+        border-radius: 5px;
+        
+        font-family: sans-serif;
+        font-size: 14px;
+        color: #ffffff;
+        width: auto;
+        height: 30px;
+        margin-top: 7px;*/
+
+    padding: 2px 5px 2px 5px;
+    font-size: 14px;
+    color: #FFF;
     border: 2px solid blue;
     background-color: blue;
-    font-family: sans-serif;
-    font-size: 14px;
-    color: #ffffff;
-    width: auto;
-    height: 30px;
-    margin-top: 7px;
+    -moz-border-radius: 10px 10px 10px 10px;
+    -webkit-border-radius: 10px 10px 10px 10px;
+    cursor: pointer;
+    float: right;
+    margin-top: -5px;
 }
 
 .btnBuscar{
@@ -165,33 +175,28 @@ a{
 }
 
 .btnTotal{
+    -moz-border-radius: 10px 10px 10px 10px;
+    -webkit-border-radius: 10px 10px 10px 10px;
     float: right;
     margin-right: 20px;
-    -webkit-border-radius: 5px;
-    -moz-border-radius: 5px;
-    border-radius: 5px;
     border: 2px solid blue;
     background-color: blue;
     font-family: sans-serif;
     font-size: 14px;
     color: #ffffff;
     width: auto;
-    height: 30px;
+    padding: 2px 5px 2px 5px;
+    cursor: pointer;
+    margin-top: -10px;
 }	
 
 /*CALENDARIO*/
-/* input box in default state */ 
 .tcalInput {
     background: url('/bundles/csereservaciones/img_calendario/calendar.png') 100% 50% no-repeat;
     padding-right: 20px;
     cursor: pointer;
 }
 
-/* additional properties for input boxe in activated state, above still applies unless in conflict */
-/*.tcalActive {*/
-/*background-image: url('../IMG_calendario/no_cal.gif');*/
-/*}*/
-/* container of calendar's pop-up */
 #tcal {
     position: absolute;
     visibility: hidden;
@@ -212,7 +217,6 @@ a{
     filter: progid:DXImageTransform.Microsoft.Shadow(Strength=4, Direction=135, Color='silver');
 }
 
-/* table containing navigation and current month */
 #tcalControls {
     border-collapse: collapse;
     border: 0;
@@ -244,7 +248,7 @@ a{
 #tcalNextMonth { background-image: url('/bundles/csereservaciones/img_calendario/next_mon.gif'); }
 #tcalNextYear { background-image: url('/bundles/csereservaciones/img_calendario/next_year.gif'); }
 
-/* table containing week days header and calendar grid */
+
 #tcalGrid {
     border-collapse: collapse;
     border: 1px solid silver;
@@ -277,7 +281,7 @@ a{
 
 .precioTable{
     width: 100px;    
-    
+
 }
 ul{
     font-size: 14px;
@@ -286,7 +290,6 @@ ul{
 }
 
 .divContenidoIzq {
-    /*background-color:#666;/*gris*/
     width: 470px;
     height: auto;
     float: left;
@@ -294,7 +297,6 @@ ul{
 }
 
 .divContenidoDer {
-    /*background-color:#CCC;/*gris*/
     width: 500px;
     height: auto;
     float: right;
@@ -308,7 +310,6 @@ ul{
     float: left;
     text-align: right;
     padding-right: 10px;
-    /*padding-top: 4px;*/
     margin-top: 20px;
 }
 
@@ -335,4 +336,59 @@ ul{
     color: black;
     font-weight: bold;
     font-size: 20px;
+}
+
+.labelShow{ 
+    color: black; 
+    font-size: 16px;
+    font-family: sans-serif;
+    text-align: left;
+    /*margin-right: 20px;*/
+}
+
+.labelNegr{
+    font-family:sans-serif;
+    font-size:16px; 
+    margin-right: 8px;
+    text-align: right;
+    
+}
+
+
+.imagen1{
+    margin-top: 15px;
+    width: 250px;
+    height: 160px;
+    margin-left: 20px;
+    float: left;
+}
+
+/*Parrafos*/
+.divParrafoDer {
+    margin-top: 15px;
+    /*background-color:#FF0;/*amarillo*/
+    text-align: justify;    
+    width: 700px;
+    margin-bottom: 20px;
+    overflow: auto;
+    float: right;
+    font-family: Arial;
+    font-size: 16px;
+    font-style: normal;
+    font-weight: normal;
+    font-variant: normal;
+}
+
+.divParrafoIzq {
+    /*background-color:#FF0;/*amarillo*/
+    text-align: justify;    
+    width: 700px;
+    margin-bottom: 20px;
+    overflow: auto;
+    float: left;
+    font-family: Arial;
+    font-size: 16px;
+    font-style: normal;
+    font-weight: normal;
+    font-variant: normal;
 }

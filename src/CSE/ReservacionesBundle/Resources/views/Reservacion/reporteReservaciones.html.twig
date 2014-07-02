@@ -9,7 +9,15 @@
                 <label class="label">Tipo de Habitación</label>
                 <select class="txt" name="txtTipoHabitacion">
                     {% for entity in habitaciones %}
-                        <option value="{{entity.id}}">{{entity.tipo}}</option>
+                        {% if filtro == 0%}
+                            <option value="{{entity.id}}">{{entity.tipo}}</option>
+                        {%else%}
+                            {%if entity.id==filtro%}
+                                <option value="{{entity.id}}" selected="true">{{entity.tipo}}</option>
+                            {%else%}
+                                <option value="{{entity.id}}">{{entity.tipo}}</option>
+                            {%endif%}
+                        {%endif%}
                     {% endfor%}
                 </select>
                 <input type="submit" name="btnBuscar" value="Buscar" class="btnBuscar"/>
@@ -53,6 +61,13 @@
                 </tr>
             </tbody>
         </table>
+        <form method="POST" action="{{path('reservacion_enviarReporteReservaciones')}}">
+            <input  type="hidden" value="{{filtro}}" name="filtro"/>
+            <label class="label"> Enviar correo a:</label>
+            <input type="text" name="txtCorreo" class="txt"/>
+            <input type="submit" value="Enviar Reporte" class="btnTotal"/>
+        </form>
+
 
 
     </div>

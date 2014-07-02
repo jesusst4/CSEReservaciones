@@ -25,13 +25,13 @@
             </div>
         </div>
         <div class="divBanner">
-            {% image '@CSEReservacionesBundle/Resources/public/images/*' %}
+            {% image '@CSEReservacionesBundle/Resources/public/images/banner.jpg' %}
             <img class="divBanner" src="{{ asset_url }}" alt="banner"/>
             {% endimage %}
 
         </div>
         <ul id="menu-horizontal">
-            <li><a href="index.php" title="Texto">Inicio</a></li>
+            <li><a href="{{path('principal')}}" title="Texto">Inicio</a></li>
             <li><a href="HabitacionView.php" title="Texto">Habitaciones</a></li>
             <li><a href="ServicioView.php" title="Texto">Servicios</a></li>
             <li><a href="ActividadView.php" title="Texto">Actividades</a></li>

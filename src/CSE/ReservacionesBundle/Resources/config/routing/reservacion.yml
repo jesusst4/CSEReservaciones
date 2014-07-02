@@ -27,7 +27,7 @@ reservacion_update:
 reservacion_delete:
     pattern:  /{id}/delete
     defaults: { _controller: "CSEReservacionesBundle:Reservacion:delete" }
-    requirements: { _method: post|delete }
+    requirements: { _method: get }
 
 reservacion_add_actividades:
     pattern:  /{id}/addActividades
@@ -57,3 +57,15 @@ reservacion_reservaciones:
 reservacion_ganancias:
     pattern: /reporte_ganancias
     defaults: {_controller: "CSEReservacionesBundle:Reservacion:reporteGanancias"}
+    
+reservacion_enviarEmail:
+    pattern: /{id}/enviar_Email 
+    defaults: {_controller: "CSEReservacionesBundle:Reservacion:envioReservacion"}
+    
+reservacion_enviarReporteReservaciones:
+    pattern: /enviar_reporte_reservaciones 
+    defaults: {_controller: "CSEReservacionesBundle:Reservacion:envioReservaciones"}
+    
+reservacion_enviarReporteGanancias:
+    pattern: /enviar_reporte_ganancias 
+    defaults: {_controller: "CSEReservacionesBundle:Reservacion:envioGanancias"}
