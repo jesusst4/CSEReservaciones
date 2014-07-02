@@ -61,3 +61,11 @@ reservacion_ganancias:
 reservacion_enviarEmail:
     pattern: /{id}/enviar_Email 
     defaults: {_controller: "CSEReservacionesBundle:Reservacion:envioReservacion"}
+    
+reservacion_enviarReporteReservaciones:
+    pattern: /enviar_reporte_reservaciones 
+    defaults: {_controller: "CSEReservacionesBundle:Reservacion:envioReservaciones"}
+    
+reservacion_enviarReporteGanancias:
+    pattern: /enviar_reporte_ganancias 
+    defaults: {_controller: "CSEReservacionesBundle:Reservacion:envioGanancias"}

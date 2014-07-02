@@ -2,7 +2,21 @@
 {% extends '::base.html.twig' %}
 
 {% block body -%}
-    <form action="{{path('reservacion_agregarservicios',{'id':entity}) }}" method="POST">
+
+    <script type="text/javascript" >
+        function validarCalcularTotal() {
+            var total = $('#totalServicios').val();
+            if (total != "") {
+                return  true;
+            }
+            else {
+                $("#errorCalcularTotal").text("Debe calcular el total");
+                return false;
+            }
+
+        }
+    </script>
+    <form action="{{path('reservacion_agregarservicios',{'id':entity}) }}" method="POST" onsubmit="return validarCalcularTotal()">
         <div class="divContenedor">
             <input type="hidden" id="reservacion" name="reservacion" value="{{ entity }}">
             <table class="table" id="tblServicios">
@@ -36,6 +50,7 @@
             </table>
             <label>Total Servicios</label>
             <input type="hidden" name="preciosServicios[]" id="precioServicios" value="{{listaPrecios}}"/>
+            <ul><li id="errorCalcularTotal"></li></ul>
             <input type="text" class="txtTotal" name="totalServicios" id="totalServicios" readonly="true"/>
             <input type="submit" name="btnActividades" value="Actividades" class="btnTotal" id="actividades"/>
             <input type="button" name="calTotalServ" value="Calcular Total" class="btnTotal" id="calTotalServ"/>

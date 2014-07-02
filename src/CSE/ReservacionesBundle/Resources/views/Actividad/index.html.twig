@@ -1,9 +1,23 @@
 {% extends '::base.html.twig' %}
 
 {% block body -%}
+    
+     <script type="text/javascript" >
+        function validarCalcularTotal() {
+            var total = $('#txtTotalActividades').val();
+            if (total != "") {
+                return  true;
+            }
+            else {
+                $("#errorCalcularTotal").text("Debe calcular el total");
+                return false;
+            }
+
+        }
+    </script>
     <div class="divContenedor">
         <h2>Lista de Actividades</h2>
-        <form action="{{ path('reservacion_save_actividades', { 'id': id })}}"  method="POST">
+        <form action="{{ path('reservacion_save_actividades', { 'id': id })}}"  method="POST" onsubmit="return validarCalcularTotal()">
             <table class="records_list table" id="tblActividades">
                 <thead>
                     <tr>
@@ -29,6 +43,7 @@
                 </tbody>
             </table>
             <label class="label">Total por Actividades</label>
+            <ul><li id="errorCalcularTotal"></li></ul>
             <input class="txtTotal " type="text" name="txtTotalActividades" id="txtTotalActividades" readonly=""/>
             <input type="submit" name="agregarActividades" id="agregarActividades" value="Agregar Actividades" class="btnTotal"/>
             <input type="button" name="calTotal" id="calTotalA" value="Calcular Total" class="btnTotal"/>
