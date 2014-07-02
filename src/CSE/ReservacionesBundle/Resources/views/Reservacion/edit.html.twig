@@ -1,16 +1,173 @@
 {% extends '::base.html.twig' %}
 
 {% block body -%}
-    <h1>Reservacion edit</h1>
+    <script type="text/javascript" >
+        function validarCantPersonas() {
+            var listaHabitaciones = $('#habitaciones').val();
+            var capacidadHabitaciones = JSON.parse(listaHabitaciones, function(clave, valor) {
+                return valor;
+            });
+            var cantPersonas = document.getElementById('cse_reservacionesbundle_reservacion_cantPersonas').value;
+            var selectVal = $('#cse_reservacionesbundle_reservacion_habitacion :selected').val();
+            for (var i = 0; i < capacidadHabitaciones.length; i++) {
+                if (selectVal == capacidadHabitaciones[i].id) {
+                    if (cantPersonas == capacidadHabitaciones[i].capacidad || cantPersonas < capacidadHabitaciones[i].capacidad) {
+                        return  true;
+                    }
+                    else {
+                        $("#errorCantidad").text("La cantidad de personas no coincide con el tipo de habitación");
+                        return false;
+                    }
+                    break;
+                }
+            }
+        }
+    </script>
+    <div class="divContenedor">
+        <form action="{{path('reservacion_update', { 'id': entity.id})}}"  method="POST" onsubmit="return validarCantPersonas()">
+            <h2>Datos del Huésped</h2>
+            {{form_row(edit_form.huesped.cedula)}}
+            {{form_row(edit_form.huesped.nombre)}}
+            {{form_row(edit_form.huesped.correo)}}
+            {{form_row(edit_form.huesped.celular)}}
+            <h2>Datos de la Reservación</h2>
+            {{form_row(edit_form.codigo)}}
+            {{form_row(edit_form.fechaIngreso)}}
+            {{form_row(edit_form.fechaSalida)}}
+            {{form_row(edit_form.habitacion)}}
 
-    {{ form(edit_form) }}
+            <ul><li id="errorCantidad"></li></ul>
 
-        <ul class="record_actions">
-    <li>
-        <a href="{{ path('reservacion') }}">
-            Back to the list
-        </a>
-    </li>
-    <li>{{ form(delete_form) }}</li>
-</ul>
+            {{form_row(edit_form.cantPersonas)}}
+            {{form_row(edit_form.totalReservacion)}}
+
+{#            {{ form_rest(edit_form)}}#}
+            <input type="button" name="calTotal" id="calTotal" value="Calcular Total total" class="btnTotal"/>
+
+
+
+
+            {#/////////////////////////////////////////////////////////////////////////////////#}          
+            <h2>Lista de Actividades</h2>
+            <table class="records_list table" id="tblActividades">
+                <thead>
+                    <tr>
+                        <th></th>
+                        <th>Actividad</th>
+                        <th>Precio</th>
+                        <th>Fecha</th>
+                        <th>Cantidad de Personas</th>
+                    </tr>
+                <input type="hidden" name="actividades[]" id="actividades" value="{{actividades}}"/>
+
+                </thead>
+                <tbody>
+
+                    {% for entity in entities %}
+                        {%set a=0%}
+                        {% for entity1 in actvsReserv %}
+                            <tr>                            
+                                {% if entity1.getActividad().id == entity.id %}  
+                                    {%set a=1%}
+                                    <td><input name="actividad[]" type="checkbox" value="{{entity.id}}" id="chx{{entity.id}}" checked="true"/></td>
+                                    <td>{{ entity.tipo }}</td>
+                                    <td><input class="precioTable" type="text" name="precio{{entity.id}}" value="{{ entity.precio }}" readonly="true"/></td>
+                                    <td><input type="text" name="fecha{{entity.id}}" class="tcal precioTable" readonly="true"  value="{{entity1.fecha|date('d-m-Y')}}"/></td>
+                                    <td> <ul><li class="limensaje" id="errorCatidadPer{{entity.id}}"></li></ul><input class="num precioTable" type="number" min="1" id="txt{{entity.id}}" name="cantPer{{entity.id}}" value="{{entity1.cantPersonas}}"/></td>
+
+                                {%endif%}
+
+                            </tr>
+                        {% endfor %}
+                        {%if a == 0%}
+
+                        <td><input name="actividad[]" type="checkbox" value="{{entity.id}}" id="chx{{entity.id}}"/></td>
+                        <td>{{ entity.tipo }}</td>
+                        <td><input class="precioTable" type="text" name="precio{{entity.id}}" value="{{ entity.precio }}" readonly="true"/></td>
+                        <td><input type="text" name="fecha{{entity.id}}" class="tcal precioTable" readonly="true"/></td>
+                        <td> <ul><li class="limensaje" id="errorCatidadPer{{entity.id}}"></li></ul><input class="num precioTable" type="number" min="1" id="txt{{entity.id}}" name="cantPer{{entity.id}}"/></td>                                            
+                                {%endif%}          
+                            {% endfor %}
+                </tbody>
+            </table>
+            <label>Total Actividades</label>
+            <input class="txtTotal " type="text" name="txtTotalActividades" id="txtTotalActividades" readonly=""/>
+            <input type="button" name="calTotal" id="calTotalA" value="Calcular Total" class="btnTotal"/>
+
+            <h2>Lista de Servicio</h2>
+            <table class="table" id="tblServicios">
+                <thead>
+                    <tr>
+                        <th></th>
+                        <th>Servicio</th>
+                        <th>Precio</th>
+                        <th>Cantidad de Personas</th>
+                    </tr>
+                </thead>
+                <tbody>
+
+                    {% for servicio in servicios %}
+                        {%set a=0%}
+                        {% for servicio1 in servsReserv %}
+                            <tr>
+                                {% if servicio1.getServicio().id == servicio.id %}
+                                    {%set a=1%}
+                                    {% if servicio.requiereCant == 1 %}
+                                        <td> <input checked="true" type='checkbox' name='serviciosSe[]' value='{{servicio.getId()}}'/></td>
+                                        <td>{{servicio.tipo}}</td>
+                                        <td>{{servicio.precio}}</td>
+                                        <td> 
+                                            <ul><li class="limensaje" id="errorCatidadPer{{servicio.id}}"></li></ul>
+                                            <input type='number' name='canPersonas{{servicio.id}}' class='txtSelect' placeholder='Cantidad de personas'id='cantPersLavand' value="{{servicio1.cantPersonas}}"/>
+                                        </td>
+                                    {%else%}
+                                        <td> <input checked="true" type='checkbox' name='serviciosSe[]' value='{{servicio.getId()}}'/></td>
+                                        <td>{{servicio.tipo}}</td>
+                                        <td>{{servicio.precio}}</td>
+                                    {%endif%}
+                                {%endif%}
+                            </tr>
+                        {% endfor %}  
+                        {%if a == 0%}
+                            {% if servicio.requiereCant == 1 %}
+                            <td> <input type='checkbox' name='serviciosSe[]' value='{{servicio.getId()}}'/></td>
+                            <td>{{servicio.tipo}}</td>
+                            <td>{{servicio.precio}}</td>
+                            <td> 
+                                <ul><li class="limensaje" id="errorCatidadPer{{servicio.id}}"></li></ul>
+                                <input type='number' name='canPersonas{{servicio.id}}' class='txtSelect' placeholder='Cantidad de personas'id='cantPersLavand'/>
+                            </td>
+                        {%else%}
+                            <td> <input type='checkbox' name='serviciosSe[]' value='{{servicio.getId()}}'/></td>
+                            <td>{{servicio.tipo}}</td>
+                            <td>{{servicio.precio}}</td>
+                        {%endif%}
+                    {%endif%}
+                {% endfor %}
+                </tbody>
+
+            </table>
+            <label>Total Servicios</label>
+            <input type="hidden" name="preciosServicios[]" id="precioServicios" value="{{listaPrecios}}"/>
+            <input type="text" class="txtTotal" name="totalServicios" id="totalServicios" readonly="true"/>
+            <input type="button" name="calTotalServ" value="Calcular Total" class="btnTotal" id="calTotalServ"/>
+            {#/////////////////////////////////////////////////////////////////////////////////#}            
+
+
+
+
+
+
+            {{ form(edit_form) }} 
+            <input type="hidden" name="habitaciones[]" id="habitaciones" value="{{habitaciones}}"/>            
+
+            {#<ul class="record_actions">
+                <li>
+                    <a href="{{ path('reservacion') }}">
+                        Back to the list
+                    </a>
+                <li>{{ form(delete_form) }}</li>
+            </ul>#}
+        </form>
+    </div>
 {% endblock %}

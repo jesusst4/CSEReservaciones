@@ -127,7 +127,6 @@ class ReservacionController extends Controller {
      */
     public function editAction($id) {
         $em = $this->getDoctrine()->getManager();
-
         $entity = $em->getRepository('CSEReservacionesBundle:Reservacion')->find($id);
 
         if (!$entity) {
@@ -135,12 +134,32 @@ class ReservacionController extends Controller {
         }
 
         $editForm = $this->createEditForm($entity);
-        $deleteForm = $this->createDeleteForm($id);
+        $listaHabitaciones = $em->getRepository('CSEReservacionesBundle:Habitacion')->consultaPrecios();
+        $listaHabitacionesSe = json_encode($listaHabitaciones);
+
+        $entities = $em->getRepository('CSEReservacionesBundle:Actividad')->findAll();
+        $actividadRepo = $em->getRepository("CSEReservacionesBundle:Actividad");
+        $listaActividades = $actividadRepo->listarActividades();
+        $actResRepo1 = $em->getRepository("CSEReservacionesBundle:AtividadesXReservacion");
+        $lActivReserv = $actResRepo1->actividadesXReservacion($id);
+        $listaActividadesCod = json_encode($listaActividades);
+
+        $listaServicios = $em->getRepository('CSEReservacionesBundle:Servicio')->findAll();
+        $listaPrecios = $em->getRepository('CSEReservacionesBundle:Servicio')->consultaPrecios();
+        $actResRepo2 = $em->getRepository("CSEReservacionesBundle:ServiciosXReservacion");
+        $lServReserv = $actResRepo2->serviciosXReservacion($id);
+        $listaPreciosSe = json_encode($listaPrecios);
 
         return $this->render('CSEReservacionesBundle:Reservacion:edit.html.twig', array(
                     'entity' => $entity,
                     'edit_form' => $editForm->createView(),
-                    'delete_form' => $deleteForm->createView(),
+                    'habitaciones' => $listaHabitacionesSe,
+                    'actividades' => $listaActividadesCod,
+                    'entities' => $entities,
+                    'servicios' => $listaServicios,
+                    'listaPrecios' => $listaPreciosSe,
+                    'actvsReserv' => $lActivReserv,
+                    'servsReserv' => $lServReserv
         ));
     }
 
@@ -152,12 +171,9 @@ class ReservacionController extends Controller {
      * @return \Symfony\Component\Form\Form The form
      */
     private function createEditForm(Reservacion $entity) {
-        $form = $this->createForm(new ReservacionType(), $entity, array(
-            'action' => $this->generateUrl('reservacion_update', array('id' => $entity->getId())),
-            'method' => 'PUT',
-        ));
+        $form = $this->createForm(new ReservacionType(), $entity);
 
-        $form->add('submit', 'submit', array('label' => 'Update'));
+        $form->add('submit', 'submit', array('label' => 'Modificar', 'attr' => array('class' => 'btn')));
 
         return $form;
     }
@@ -175,20 +191,80 @@ class ReservacionController extends Controller {
             throw $this->createNotFoundException('Unable to find Reservacion entity.');
         }
 
-        $deleteForm = $this->createDeleteForm($id);
         $editForm = $this->createEditForm($entity);
         $editForm->handleRequest($request);
 
         if ($editForm->isValid()) {
-            $em->flush();
+            $reservGuardadas = array();
+            $actResRepo1 = $em->getRepository('CSEReservacionesBundle:AtividadesXReservacion');
+            $reservGuardadas = $actResRepo1->idActividadesXReservacion($id);
+            
+            $reservMarcadas = array();
+            $reservMarcadas = $request->request->get("actividad");
+            
+            array_values($reservGuardadas);
+            var_dump(array_values($reservGuardadas));
+//            print_r($reservGuardadas);
+            $resEliminar = array_diff($reservGuardadas, $reservMarcadas); 
+            $resGuardar = array_diff($reservMarcadas, $reservGuardadas);
+            
+            foreach ($resEliminar as $value) {
+                $entityReservacion = $em->getRepository('CSEReservacionesBundle:AtividadesXReservacion')->find($value);
+                $em ->remove($entityReservacion);
+                $em ->flush();
+            }
+            
+            
+            
+//            echo gettype($actividades)." actividades";
+//            $entityReservacion = $em->getRepository('CSEReservacionesBundle:Reservacion')->find($id);
+//            $cantidad = count($actividades);
+//            $subtotalActividades = 0;
+//
+//            foreach ($actividades as $kay => $value) {
+//                $AtividadesXReservacion = new AtividadesXReservacion();
+//                $entityActividad = $em->getRepository('CSEReservacionesBundle:Actividad')->find($value);
+//                $AtividadesXReservacion->setActividad($entityActividad);
+//                $AtividadesXReservacion->setReservacion($entityReservacion);
+//                $AtividadesXReservacion->setCantPersonas($request->request->get("cantPer" . $value));
+//                $AtividadesXReservacion->setSubtotal($request->request->get("cantPer" . $value) * $request->request->get("precio" . $value));
+//                $date = $request->request->get("fecha" . $value);
+//                $AtividadesXReservacion->setFecha(new \DateTime($date));
+//                array_push($reservMarcadas, $AtividadesXReservacion);
+//
+//                $subtotalActividades += $request->request->get("cantPer" . $value) * $request->request->get("precio" . $value);
+//            }
+//
+//            echo ' sjdfs2 ' . gettype($reservMarcadas);
+//            $array1 = array("a" => "green", "red", "blue", "red",array("a" => "green", "red", "blue", "red"));
+//            $array2 = array("b" => "green", "yellow", "red", array("a" => "green", "red", "blue", "red"));
+//            $resultado = array_diff($array1, $array2);
+//            echo gettype($resultado)."  resultado";
+//
+//            print_r($resultado);
+//
+//            $aGuardar = array_diff($reservGuardadas, $reservMarcadas);
+//            $aEliminar = array_diff($reservGuardadas, $reservMarcadas);
+//
+////            foreach ($aGuardar as $key => $value) {
+////            }
+////            foreach ($aEliminar as $key => $value) {
+////                
+////            }
+//
+//            $entityReservacion->setSubtotalActividades($subtotalActividades);
+//            $em->flush();
 
             return $this->redirect($this->generateUrl('reservacion_edit', array('id' => $id)));
         }
 
+        $listaHabitaciones = $em->getRepository('CSEReservacionesBundle:Habitacion')->consultaPrecios();
+        $listaHabitacionesSe = json_encode($listaHabitaciones);
+
         return $this->render('CSEReservacionesBundle:Reservacion:edit.html.twig', array(
                     'entity' => $entity,
                     'edit_form' => $editForm->createView(),
-                    'delete_form' => $deleteForm->createView(),
+                    'habitaciones' => $listaHabitacionesSe
         ));
     }
 
@@ -346,46 +422,42 @@ class ReservacionController extends Controller {
         $habitaciones = $em->getRepository('CSEReservacionesBundle:Habitacion')->findAll();
 
         if ($request->request->get("txtTipoHabitacion") != null) {
-            
+
             $em = $this->getDoctrine()->getManager();
             $reservaciones = $em->getRepository('CSEReservacionesBundle:Reservacion')->reporteReservaciones($request->request->get("txtTipoHabitacion"));
             $total = $em->getRepository('CSEReservacionesBundle:Reservacion')->totalReporte($request->request->get("txtTipoHabitacion"));
             $total1 = $total[0];
             $totalRe = $total1['total'];
             return $this->render('CSEReservacionesBundle:Reservacion:reporteReservaciones.html.twig', array('habitaciones' => $habitaciones, 'reservaciones' => $reservaciones, 'total' => $totalRe));
-            
         } else {
-            
+
             $total = $em->getRepository('CSEReservacionesBundle:Reservacion')->totalReservaciones();
             $total1 = $total[0];
             $totalRe = $total1['total'];
             $reservaciones = $em->getRepository('CSEReservacionesBundle:Reservacion')->findAll();
             return $this->render('CSEReservacionesBundle:Reservacion:reporteReservaciones.html.twig', array('habitaciones' => $habitaciones, 'reservaciones' => $reservaciones, 'total' => $totalRe));
-            
         }
     }
-    
+
     public function reporteGananciasAction(Request $request) {
         $em = $this->getDoctrine()->getManager();
         $habitaciones = $em->getRepository('CSEReservacionesBundle:Habitacion')->findAll();
 
         if ($request->request->get("txtTipoHabitacion") != null) {
-            
+
             $em = $this->getDoctrine()->getManager();
             $reservaciones = $em->getRepository('CSEReservacionesBundle:Reservacion')->reporteReservaciones($request->request->get("txtTipoHabitacion"));
             $total = $em->getRepository('CSEReservacionesBundle:Reservacion')->totalReporte($request->request->get("txtTipoHabitacion"));
             $total1 = $total[0];
             $totalRe = $total1['total'];
             return $this->render('CSEReservacionesBundle:Reservacion:reporteGanancias.html.twig', array('habitaciones' => $habitaciones, 'reservaciones' => $reservaciones, 'total' => $totalRe));
-            
         } else {
-            
+
             $total = $em->getRepository('CSEReservacionesBundle:Reservacion')->totalReservaciones();
             $total1 = $total[0];
             $totalRe = $total1['total'];
             $reservaciones = $em->getRepository('CSEReservacionesBundle:Reservacion')->findAll();
             return $this->render('CSEReservacionesBundle:Reservacion:reporteGanancias.html.twig', array('habitaciones' => $habitaciones, 'reservaciones' => $reservaciones, 'total' => $totalRe));
-            
         }
     }
 

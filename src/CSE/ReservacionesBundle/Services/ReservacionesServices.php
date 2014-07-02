@@ -15,10 +15,13 @@
 namespace CSE\ReservacionesBundle\Services;
 
 use Doctrine\ORM\EntityManager;
+
 class ReservacionesServices {
+
     private $doctrine;
+
     public function __construct($service) {
-        $this->doctrine=$service;
+        $this->doctrine = $service;
     }
 
     public function generarCodigo() {
@@ -36,6 +39,14 @@ class ReservacionesServices {
         } else {
             return $codigo;
         }
+    }
+
+    public function quitarActividadesXReservacion($id) {
+        $this->getEntityManager()->createQuery("SELECT  ar FROM CSEReservacionesBundle:AtividadesXReservacion ar JOIN ar.reservacion r WHERE r.id = :id ")->setParameter('id', $id)->getResult();
+    }
+
+    public function quitarServiciosXReservacion($id) {
+        $this->getEntityManager()->createQuery("SELECT  ar FROM CSEReservacionesBundle:AtividadesXReservacion ar JOIN ar.reservacion r WHERE r.id = :id ")->setParameter('id', $id)->getResult();
     }
 
 }
