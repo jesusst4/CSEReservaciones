@@ -41,7 +41,7 @@
             {{form_row(edit_form.cantPersonas)}}
             {{form_row(edit_form.totalReservacion)}}
 
-{#            {{ form_rest(edit_form)}}#}
+            {#            {{ form_rest(edit_form)}}#}
             <input type="button" name="calTotal" id="calTotal" value="Calcular Total total" class="btnTotal"/>
 
 
@@ -64,9 +64,10 @@
                 <tbody>
 
                     {% for entity in entities %}
-                        {%set a=0%}
-                        {% for entity1 in actvsReserv %}
-                            <tr>                            
+                        <tr>
+                            {%set a=0%}
+                            {% for entity1 in actvsReserv %}
+
                                 {% if entity1.getActividad().id == entity.id %}  
                                     {%set a=1%}
                                     <td><input name="actividad[]" type="checkbox" value="{{entity.id}}" id="chx{{entity.id}}" checked="true"/></td>
@@ -77,21 +78,22 @@
 
                                 {%endif%}
 
-                            </tr>
-                        {% endfor %}
-                        {%if a == 0%}
 
-                        <td><input name="actividad[]" type="checkbox" value="{{entity.id}}" id="chx{{entity.id}}"/></td>
-                        <td>{{ entity.tipo }}</td>
-                        <td><input class="precioTable" type="text" name="precio{{entity.id}}" value="{{ entity.precio }}" readonly="true"/></td>
-                        <td><input type="text" name="fecha{{entity.id}}" class="tcal precioTable" readonly="true"/></td>
-                        <td> <ul><li class="limensaje" id="errorCatidadPer{{entity.id}}"></li></ul><input class="num precioTable" type="number" min="1" id="txt{{entity.id}}" name="cantPer{{entity.id}}"/></td>                                            
-                                {%endif%}          
                             {% endfor %}
+                            {%if a == 0%}
+
+                                <td><input name="actividad[]" type="checkbox" value="{{entity.id}}" id="chx{{entity.id}}"/></td>
+                                <td>{{ entity.tipo }}</td>
+                                <td><input class="precioTable" type="text" name="precio{{entity.id}}" value="{{ entity.precio }}" readonly="true"/></td>
+                                <td><input type="text" name="fecha{{entity.id}}" class="tcal precioTable" readonly="true"/></td>
+                                <td> <ul><li class="limensaje" id="errorCatidadPer{{entity.id}}"></li></ul><input class="num precioTable" type="number" min="1" id="txt{{entity.id}}" name="cantPer{{entity.id}}"/></td>                                            
+                                        {%endif%} 
+                        </tr>
+                    {% endfor %}
                 </tbody>
             </table>
             <label>Total Actividades</label>
-            <input class="txtTotal " type="text" name="txtTotalActividades" id="txtTotalActividades" readonly=""/>
+            <input class="txtTotal " type="text" name="txtTotalActividades" id="txtTotalActividades" readonly="" value="{{entity.subtotalActividades}}"/>
             <input type="button" name="calTotal" id="calTotalA" value="Calcular Total" class="btnTotal"/>
 
             <h2>Lista de Servicio</h2>
@@ -107,9 +109,10 @@
                 <tbody>
 
                     {% for servicio in servicios %}
-                        {%set a=0%}
-                        {% for servicio1 in servsReserv %}
-                            <tr>
+                        <tr>
+                            {%set a=0%}
+                            {% for servicio1 in servsReserv %}
+
                                 {% if servicio1.getServicio().id == servicio.id %}
                                     {%set a=1%}
                                     {% if servicio.requiereCant == 1 %}
@@ -126,30 +129,31 @@
                                         <td>{{servicio.precio}}</td>
                                     {%endif%}
                                 {%endif%}
-                            </tr>
-                        {% endfor %}  
-                        {%if a == 0%}
-                            {% if servicio.requiereCant == 1 %}
-                            <td> <input type='checkbox' name='serviciosSe[]' value='{{servicio.getId()}}'/></td>
-                            <td>{{servicio.tipo}}</td>
-                            <td>{{servicio.precio}}</td>
-                            <td> 
-                                <ul><li class="limensaje" id="errorCatidadPer{{servicio.id}}"></li></ul>
-                                <input type='number' name='canPersonas{{servicio.id}}' class='txtSelect' placeholder='Cantidad de personas'id='cantPersLavand'/>
-                            </td>
-                        {%else%}
-                            <td> <input type='checkbox' name='serviciosSe[]' value='{{servicio.getId()}}'/></td>
-                            <td>{{servicio.tipo}}</td>
-                            <td>{{servicio.precio}}</td>
-                        {%endif%}
-                    {%endif%}
-                {% endfor %}
+
+                            {% endfor %}  
+                            {%if a == 0%}
+                                {% if servicio.requiereCant == 1 %}
+                                    <td> <input type='checkbox' name='serviciosSe[]' value='{{servicio.getId()}}'/></td>
+                                    <td>{{servicio.tipo}}</td>
+                                    <td>{{servicio.precio}}</td>
+                                    <td> 
+                                        <ul><li class="limensaje" id="errorCatidadPer{{servicio.id}}"></li></ul>
+                                        <input type='number' name='canPersonas{{servicio.id}}' class='txtSelect' placeholder='Cantidad de personas'id='cantPersLavand'/>
+                                    </td>
+                                {%else%}
+                                    <td> <input type='checkbox' name='serviciosSe[]' value='{{servicio.getId()}}'/></td>
+                                    <td>{{servicio.tipo}}</td>
+                                    <td>{{servicio.precio}}</td>
+                                {%endif%}
+                            {%endif%}
+                        </tr>
+                    {% endfor %}
                 </tbody>
 
             </table>
             <label>Total Servicios</label>
             <input type="hidden" name="preciosServicios[]" id="precioServicios" value="{{listaPrecios}}"/>
-            <input type="text" class="txtTotal" name="totalServicios" id="totalServicios" readonly="true"/>
+            <input type="text" class="txtTotal" name="totalServicios" id="totalServicios" readonly="true" value="{{entity.subtotalServicios}}"/>
             <input type="button" name="calTotalServ" value="Calcular Total" class="btnTotal" id="calTotalServ"/>
             {#/////////////////////////////////////////////////////////////////////////////////#}            
 

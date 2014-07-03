@@ -199,65 +199,62 @@ class ReservacionController extends Controller {
         $editForm->handleRequest($request);
 
         if ($editForm->isValid()) {
-            $reservGuardadas = array();
+            //eliminar actividades asociadas
             $actResRepo1 = $em->getRepository('CSEReservacionesBundle:AtividadesXReservacion');
-            $reservGuardadas = $actResRepo1->idActividadesXReservacion($id);
+            $actResRepo1->eliminarActividadesXReservacion($id);
 
-            $reservMarcadas = array();
-            $reservMarcadas = $request->request->get("actividad");
+            //agregar las actividades seleccionadas
+            $actividades = $request->request->get("actividad");
+            $em = $this->getDoctrine()->getManager();
+            $entityReservacion = $em->getRepository('CSEReservacionesBundle:Reservacion')->find($id);
+            $subtotalActividades = 0;
 
-            array_values($reservGuardadas);
-            var_dump(array_values($reservGuardadas));
-//            print_r($reservGuardadas);
-            $resEliminar = array_diff($reservGuardadas, $reservMarcadas);
-            $resGuardar = array_diff($reservMarcadas, $reservGuardadas);
+            foreach ($actividades as $kay => $value) {
+                $entity = new AtividadesXReservacion();
+                $entityActividad = $em->getRepository('CSEReservacionesBundle:Actividad')->find($value);
+                $entity->setActividad($entityActividad);
+                $entity->setReservacion($entityReservacion);
+                $entity->setCantPersonas($request->request->get("cantPer" . $value));
+                $entity->setSubtotal($request->request->get("cantPer" . $value) * $request->request->get("precio" . $value));
 
-            foreach ($resEliminar as $value) {
-                $entityReservacion = $em->getRepository('CSEReservacionesBundle:AtividadesXReservacion')->find($value);
-                $em->remove($entityReservacion);
-                $em->flush();
+                $subtotalActividades += $request->request->get("cantPer" . $value) * $request->request->get("precio" . $value);
+
+                $date = $request->request->get("fecha" . $value);
+                $entity->setFecha(new \DateTime($date));
+                $em->persist($entity);
+            }
+            $entityReservacion->setSubtotalActividades($subtotalActividades);
+
+            //eliminar actividades asociadas
+            $actResRepo2 = $em->getRepository('CSEReservacionesBundle:ServiciosXReservacion');
+            $actResRepo2->eliminarServiciosXReservacion($id);
+
+            //agregar las servicios seleccionadas
+            $servicios = $request->request->get("serviciosSe");
+            $em = $this->getDoctrine()->getManager();
+            $entityReservacion = $em->getRepository('CSEReservacionesBundle:Reservacion')->find($id);
+            $entityReservacion->setSubtotalServicios($request->request->get("totalServicios"));
+            $em->persist($entityReservacion);
+
+            foreach ($servicios as $value) {
+
+                $entityServicio = $em->getRepository('CSEReservacionesBundle:Servicio')->find($value);
+                $entity = new ServiciosXReservacion();
+                $entity->setServicio($entityServicio);
+                $entity->setReservacion($entityReservacion);
+
+                if ($entityServicio->getRequiereCant() == 1) {
+
+                    $entity->setCantPersonas($request->request->get("canPersonas" . $value));
+                    $entity->setSubtotal($request->request->get("canPersonas" . $value) * $entityServicio->getPrecio());
+                } else {
+
+                    $entity->setSubtotal($entityServicio->getPrecio());
+                }
+                $em->persist($entity);
             }
 
-
-
-//            echo gettype($actividades)." actividades";
-//            $entityReservacion = $em->getRepository('CSEReservacionesBundle:Reservacion')->find($id);
-//            $cantidad = count($actividades);
-//            $subtotalActividades = 0;
-//
-//            foreach ($actividades as $kay => $value) {
-//                $AtividadesXReservacion = new AtividadesXReservacion();
-//                $entityActividad = $em->getRepository('CSEReservacionesBundle:Actividad')->find($value);
-//                $AtividadesXReservacion->setActividad($entityActividad);
-//                $AtividadesXReservacion->setReservacion($entityReservacion);
-//                $AtividadesXReservacion->setCantPersonas($request->request->get("cantPer" . $value));
-//                $AtividadesXReservacion->setSubtotal($request->request->get("cantPer" . $value) * $request->request->get("precio" . $value));
-//                $date = $request->request->get("fecha" . $value);
-//                $AtividadesXReservacion->setFecha(new \DateTime($date));
-//                array_push($reservMarcadas, $AtividadesXReservacion);
-//
-//                $subtotalActividades += $request->request->get("cantPer" . $value) * $request->request->get("precio" . $value);
-//            }
-//
-//            echo ' sjdfs2 ' . gettype($reservMarcadas);
-//            $array1 = array("a" => "green", "red", "blue", "red",array("a" => "green", "red", "blue", "red"));
-//            $array2 = array("b" => "green", "yellow", "red", array("a" => "green", "red", "blue", "red"));
-//            $resultado = array_diff($array1, $array2);
-//            echo gettype($resultado)."  resultado";
-//
-//            print_r($resultado);
-//
-//            $aGuardar = array_diff($reservGuardadas, $reservMarcadas);
-//            $aEliminar = array_diff($reservGuardadas, $reservMarcadas);
-//
-////            foreach ($aGuardar as $key => $value) {
-////            }
-////            foreach ($aEliminar as $key => $value) {
-////                
-////            }
-//
-//            $entityReservacion->setSubtotalActividades($subtotalActividades);
-//            $em->flush();
+            $em->flush();
 
             return $this->redirect($this->generateUrl('reservacion_edit', array('id' => $id)));
         }
