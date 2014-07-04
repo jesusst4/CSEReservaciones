@@ -1,0 +1,7 @@
+parameters:
+#    cse_autenticacion.example.class: CSE\AutenticacionBundle\Example
+
+services:
+#    cse_autenticacion.example:
+#        class: %cse_autenticacion.example.class%
+#        arguments: [@service_id, "plain_value", %parameter%]

@@ -17,7 +17,9 @@ class AppKernel extends Kernel {
             new Sensio\Bundle\FrameworkExtraBundle\SensioFrameworkExtraBundle(),
             new CSE\ReservacionesBundle\CSEReservacionesBundle(),
             new Ps\PdfBundle\PsPdfBundle(),
-            
+
+            new CSE\AutenticacionBundle\CSEAutenticacionBundle(),
+            new FOS\UserBundle\FOSUserBundle(),
         );
 
         if (in_array($this->getEnvironment(), array('dev', 'test'))) {

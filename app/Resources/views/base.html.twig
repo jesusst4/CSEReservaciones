@@ -1,5 +1,15 @@
 <!DOCTYPE html>
 <html>
+    <div>
+        {% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}
+            {{ 'layout.logged_in_as'|trans({'%username%': app.user.username}, 'FOSUserBundle') }} |
+            <a href="{{ path('fos_user_security_logout') }}">
+                {{ 'layout.logout'|trans({}, 'FOSUserBundle') }}
+            </a>
+        {% else %}
+            <a href="{{ path('fos_user_security_login') }}">{{ 'layout.login'|trans({}, 'FOSUserBundle') }}</a>
+        {% endif %}
+    </div>
     <head>
         <meta charset="UTF-8" />
         <title>{% block title %}Hotel las Brisas del Pacífico{% endblock %}</title>                
@@ -8,7 +18,7 @@
             {% stylesheets '@CSEReservacionesBundle/Resources/public/css/*' filter='cssrewrite' %}
             <link rel="stylesheet" href="{{ asset_url }}" />
             {% endstylesheets %}
-            
+
             {% javascripts '@CSEReservacionesBundle/Resources/public/js/*' %}
             <script type="text/javascript" src="{{ asset_url }}"></script>
             {% endjavascripts %}

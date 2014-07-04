@@ -66,7 +66,7 @@ class GenerarReportesPdf {
             }
         }
         $pdf->pages[] = $page;
-        $pdf->save(__DIR__ . '\..\Services\documentos\new.pdf');
+        $pdf->save(__DIR__ . '/../Services/documentos/new.pdf');
         return $pdf;
     }
 

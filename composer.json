@@ -18,7 +18,8 @@
         "sensio/distribution-bundle": "~3.0",
         "sensio/framework-extra-bundle": "~3.0",
         "incenteev/composer-parameter-handler": "~2.0",
-         "psliwa/pdf-bundle": "dev-master"
+         "psliwa/pdf-bundle": "dev-master",
+        "friendsofsymfony/user-bundle": "~2.0@dev"
     },
     "minimum-stability": "dev", 
     "require-dev": {
