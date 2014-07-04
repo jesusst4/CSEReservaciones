@@ -69,3 +69,7 @@ reservacion_enviarReporteReservaciones:
 reservacion_enviarReporteGanancias:
     pattern: /enviar_reporte_ganancias 
     defaults: {_controller: "CSEReservacionesBundle:Reservacion:envioGanancias"}
+    
+reporte_ganancias_pdf:
+    pattern: /reporte_ganancias_pdf
+    defaults: {_controller: "CSEReservacionesBundle:Reservacion:ganaciasPDF"}

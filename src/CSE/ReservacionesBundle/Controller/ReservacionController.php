@@ -12,6 +12,11 @@ use CSE\ReservacionesBundle\Entity\AtividadesXReservacion;
 use CSE\ReservacionesBundle\Entity\ActividadRepository;
 use CSE\ReservacionesBundle\Entity\Servicio;
 use CSE\ReservacionesBundle\Entity\ServiciosXReservacion;
+use Ps\PdfBundle\Annotation\Pdf;
+use ZendPdf\PdfDocument;
+use ZendPdf\Font;
+use ZendPdf\Page;
+use ZendPdf\Style;
 
 /**
  * Reservacion controller.
@@ -380,12 +385,12 @@ class ReservacionController extends Controller {
     public function envioReservacionAction($id) {
         $this->get('enviarEmailServices')->enviarReservacion($id);
 
+
         return $this->redirect($this->generateUrl('principal'));
     }
 
     public function envioReservacionesAction(Request $request) {
 
-        echo '' . $request->request->get("filtro");
         $this->get('enviarEmailServices')->enviarReporteReservaciones($request->request->get("filtro"), $request->request->get("txtCorreo"));
 
         return $this->redirect($this->generateUrl('principal'));
@@ -397,6 +402,17 @@ class ReservacionController extends Controller {
         $this->get('enviarEmailServices')->enviarReporteGanancias($request->request->get("filtro"), $request->request->get("txtCorreo"));
 
         return $this->redirect($this->generateUrl('principal'));
+    }
+
+    public function ganaciasPDFAction(Request $request) {
+
+        $pdfGenerado = $this->get('generarReportePDF')->generarReporteGanciasPDF($request->request->get("filtro"), $request->request->get("txtCorreo"));
+
+        header("Content-Type: application/x-pdf");
+        header("Content-Disposition: attachment; filename=Reporte de Reservaciones-" . date("d-m-Y") . ".pdf");
+        header("Cache-Control: no-cache, must-revalidate");
+        echo $pdfGenerado->render();
+        return new Response("Reporte generado con éxito");
     }
 
 }

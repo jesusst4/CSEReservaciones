@@ -1,6 +1,7 @@
 parameters:
     reservacionesServices.class: CSE\ReservacionesBundle\Services\ReservacionesServices
     enviarEmailServices.class: CSE\ReservacionesBundle\Services\EnviarReservacionServices
+    generarReportePDF.class: CSE\ReservacionesBundle\Services\GenerarReportesPdf
 
 services:
     reservacionesServices:
@@ -9,3 +10,6 @@ services:
     enviarEmailServices:
         class: %enviarEmailServices.class%
         arguments: [@doctrine, @mailer]
+    generarReportePDF:
+        class: %generarReportePDF.class%
+        arguments: [@doctrine]

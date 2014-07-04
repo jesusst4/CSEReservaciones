@@ -5,7 +5,7 @@
     <div class="divContenedor">
         <form method="POST" action="{{path('reservacion_reservaciones')}}">
             <h1 class="titulo">Lista de Reservaciones</h1>
-            <div style="margin-top: 8px">
+            <div style="margin-top: 8px;float: left; width: 500px;">
                 <label class="label">Tipo de Habitación</label>
                 <select class="txt" name="txtTipoHabitacion">
                     {% for entity in habitaciones %}
@@ -21,6 +21,19 @@
                     {% endfor%}
                 </select>
                 <input type="submit" name="btnBuscar" value="Buscar" class="btnBuscar"/>
+
+            </div>
+            <div style="margin-top: 8px; float: right;width: 400px;">
+                {% image '@CSEReservacionesBundle/Resources/public/images/pdf.png' %}
+                <img style="margin-left: 250px; float: left;" src="{{ asset_url }}" alt="banner"/>
+                {% endimage %}
+                <ul style="padding-right: 20px;float: right;">
+                    <li>
+                        <a href="{{ path('reporte_ganancias_pdf') }}">
+                            Generar reporte
+                        </a>
+                    </li>
+                </ul>
             </div>
         </form>
         <table class="records_list table">
@@ -62,9 +75,11 @@
             </tbody>
         </table>
         <form method="POST" action="{{path('reservacion_enviarReporteReservaciones')}}">
-            <input  type="hidden" value="{{filtro}}" name="filtro"/>
-            <label class="label"> Enviar correo a:</label>
-            <input type="text" name="txtCorreo" class="txt"/>
+            <div style="margin-top: 8px;float: left; width: 500px;">
+                <input  type="hidden" value="{{filtro}}" name="filtro"/>
+                <label class="label"> Enviar correo a:</label>
+                <input type="text" name="txtCorreo" class="txt"/>
+            </div>
             <input type="submit" value="Enviar Reporte" class="btnTotal"/>
         </form>
 
