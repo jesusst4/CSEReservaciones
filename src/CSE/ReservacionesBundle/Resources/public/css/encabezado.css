@@ -16,7 +16,7 @@ and open the template in the editor.
 .divLogin{
     height: 30px;
     width: 1000px;
-    
+    text-align: right;
 }
 
 .divBanner{

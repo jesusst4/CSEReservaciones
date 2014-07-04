@@ -261,7 +261,7 @@ class ReservacionController extends Controller {
 
             $em->flush();
 
-            return $this->redirect($this->generateUrl('reservacion_edit', array('id' => $id)));
+            return $this->redirect($this->generateUrl('reservacion_show', array('id' => $id)));
         }
 
         $listaHabitaciones = $em->getRepository('CSEReservacionesBundle:Habitacion')->consultaPrecios();
@@ -348,7 +348,7 @@ class ReservacionController extends Controller {
 
         $em->flush();
 
-        return $this->redirect($this->generateUrl('principal'));
+        return $this->redirect($this->generateUrl('reservacion_show', array('id' => $id)));
     }
 
     public function serviciosAction($id) {

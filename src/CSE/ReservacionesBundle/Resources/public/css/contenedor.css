@@ -16,6 +16,16 @@ and open the template in the editor.
 
 }
 
+
+.divContenedorLogin{
+    width: 400px;
+    height: auto;
+    margin: auto;
+    margin-bottom: 50px;
+    margin-top: 50px;
+    
+
+}
 .titulo{
     margin-top: 20px;
     font-family: sans-serif;
@@ -104,7 +114,7 @@ label {
 
 
 form div { padding: 7px; }
-form div label{display: block; float: left; width: 150px;color: grey; font-weight: bold;}
+form div label{display: block; float: left; height: 20px; width: 150px;color: grey; font-weight: bold;}
 select:focus, textarea:focus{background-color: #FFFDD4;}
 
 h2{
