@@ -102,7 +102,6 @@ class Reservacion {
      *
      * @ORM\Column(name="subtotal_servicios", type="decimal", scale=2, nullable=true)
      * 
-     * @Assert\Null()
      */
     private $subtotalServicios;
 
@@ -111,7 +110,6 @@ class Reservacion {
      *
      * @ORM\Column(name="subtotal_actividades", type="decimal", scale=2, nullable=true)
      * 
-     * @Assert\Null()
      */
     private $subtotalActividades;
 

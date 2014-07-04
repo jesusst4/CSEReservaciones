@@ -136,7 +136,6 @@ class ReservacionController extends Controller {
      */
     public function editAction($id) {
         $em = $this->getDoctrine()->getManager();
-
         $entity = $em->getRepository('CSEReservacionesBundle:Reservacion')->find($id);
 
         if (!$entity) {
@@ -144,12 +143,32 @@ class ReservacionController extends Controller {
         }
 
         $editForm = $this->createEditForm($entity);
-        $deleteForm = $this->createDeleteForm($id);
+        $listaHabitaciones = $em->getRepository('CSEReservacionesBundle:Habitacion')->consultaPrecios();
+        $listaHabitacionesSe = json_encode($listaHabitaciones);
+
+        $entities = $em->getRepository('CSEReservacionesBundle:Actividad')->findAll();
+        $actividadRepo = $em->getRepository("CSEReservacionesBundle:Actividad");
+        $listaActividades = $actividadRepo->listarActividades();
+        $actResRepo1 = $em->getRepository("CSEReservacionesBundle:AtividadesXReservacion");
+        $lActivReserv = $actResRepo1->actividadesXReservacion($id);
+        $listaActividadesCod = json_encode($listaActividades);
+
+        $listaServicios = $em->getRepository('CSEReservacionesBundle:Servicio')->findAll();
+        $listaPrecios = $em->getRepository('CSEReservacionesBundle:Servicio')->consultaPrecios();
+        $actResRepo2 = $em->getRepository("CSEReservacionesBundle:ServiciosXReservacion");
+        $lServReserv = $actResRepo2->serviciosXReservacion($id);
+        $listaPreciosSe = json_encode($listaPrecios);
 
         return $this->render('CSEReservacionesBundle:Reservacion:edit.html.twig', array(
                     'entity' => $entity,
                     'edit_form' => $editForm->createView(),
-                    'delete_form' => $deleteForm->createView(),
+                    'habitaciones' => $listaHabitacionesSe,
+                    'actividades' => $listaActividadesCod,
+                    'entities' => $entities,
+                    'servicios' => $listaServicios,
+                    'listaPrecios' => $listaPreciosSe,
+                    'actvsReserv' => $lActivReserv,
+                    'servsReserv' => $lServReserv
         ));
     }
 
@@ -161,12 +180,9 @@ class ReservacionController extends Controller {
      * @return \Symfony\Component\Form\Form The form
      */
     private function createEditForm(Reservacion $entity) {
-        $form = $this->createForm(new ReservacionType(), $entity, array(
-            'action' => $this->generateUrl('reservacion_update', array('id' => $entity->getId())),
-            'method' => 'PUT',
-        ));
+        $form = $this->createForm(new ReservacionType(), $entity);
 
-        $form->add('submit', 'submit', array('label' => 'Update'));
+        $form->add('submit', 'submit', array('label' => 'Modificar', 'attr' => array('class' => 'btn')));
 
         return $form;
     }
@@ -184,20 +200,77 @@ class ReservacionController extends Controller {
             throw $this->createNotFoundException('Unable to find Reservacion entity.');
         }
 
-        $deleteForm = $this->createDeleteForm($id);
         $editForm = $this->createEditForm($entity);
         $editForm->handleRequest($request);
 
         if ($editForm->isValid()) {
+            //eliminar actividades asociadas
+            $actResRepo1 = $em->getRepository('CSEReservacionesBundle:AtividadesXReservacion');
+            $actResRepo1->eliminarActividadesXReservacion($id);
+
+            //agregar las actividades seleccionadas
+            $actividades = $request->request->get("actividad");
+            $em = $this->getDoctrine()->getManager();
+            $entityReservacion = $em->getRepository('CSEReservacionesBundle:Reservacion')->find($id);
+            $subtotalActividades = 0;
+
+            foreach ($actividades as $kay => $value) {
+                $entity = new AtividadesXReservacion();
+                $entityActividad = $em->getRepository('CSEReservacionesBundle:Actividad')->find($value);
+                $entity->setActividad($entityActividad);
+                $entity->setReservacion($entityReservacion);
+                $entity->setCantPersonas($request->request->get("cantPer" . $value));
+                $entity->setSubtotal($request->request->get("cantPer" . $value) * $request->request->get("precio" . $value));
+
+                $subtotalActividades += $request->request->get("cantPer" . $value) * $request->request->get("precio" . $value);
+
+                $date = $request->request->get("fecha" . $value);
+                $entity->setFecha(new \DateTime($date));
+                $em->persist($entity);
+            }
+            $entityReservacion->setSubtotalActividades($subtotalActividades);
+
+            //eliminar actividades asociadas
+            $actResRepo2 = $em->getRepository('CSEReservacionesBundle:ServiciosXReservacion');
+            $actResRepo2->eliminarServiciosXReservacion($id);
+
+            //agregar las servicios seleccionadas
+            $servicios = $request->request->get("serviciosSe");
+            $em = $this->getDoctrine()->getManager();
+            $entityReservacion = $em->getRepository('CSEReservacionesBundle:Reservacion')->find($id);
+            $entityReservacion->setSubtotalServicios($request->request->get("totalServicios"));
+            $em->persist($entityReservacion);
+
+            foreach ($servicios as $value) {
+
+                $entityServicio = $em->getRepository('CSEReservacionesBundle:Servicio')->find($value);
+                $entity = new ServiciosXReservacion();
+                $entity->setServicio($entityServicio);
+                $entity->setReservacion($entityReservacion);
+
+                if ($entityServicio->getRequiereCant() == 1) {
+
+                    $entity->setCantPersonas($request->request->get("canPersonas" . $value));
+                    $entity->setSubtotal($request->request->get("canPersonas" . $value) * $entityServicio->getPrecio());
+                } else {
+
+                    $entity->setSubtotal($entityServicio->getPrecio());
+                }
+                $em->persist($entity);
+            }
+
             $em->flush();
 
             return $this->redirect($this->generateUrl('reservacion_edit', array('id' => $id)));
         }
 
+        $listaHabitaciones = $em->getRepository('CSEReservacionesBundle:Habitacion')->consultaPrecios();
+        $listaHabitacionesSe = json_encode($listaHabitaciones);
+
         return $this->render('CSEReservacionesBundle:Reservacion:edit.html.twig', array(
                     'entity' => $entity,
                     'edit_form' => $editForm->createView(),
-                    'delete_form' => $deleteForm->createView(),
+                    'habitaciones' => $listaHabitacionesSe
         ));
     }
 
