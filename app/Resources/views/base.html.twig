@@ -4,8 +4,8 @@
         <meta charset="UTF-8" />
         <title>{% block title %}Hotel las Brisas del Pacífico{% endblock %}</title>                
 
-        
-{% block stylesheets %}
+
+        {% block stylesheets %}
             {% stylesheets '@CSEReservacionesBundle/Resources/public/css/*' filter='cssrewrite' %}
             <link rel="stylesheet" href="{{ asset_url }}" />
             {% endstylesheets %}
@@ -41,11 +41,14 @@
 
             <li><a href=""> Reservaciones</a>
                 <ul>
+                    {% if (is_granted('ROLE_ADMIN')) or (is_granted('ROLE_GENERAL')) or (is_granted('ROLE_GERENTE')) %}
                     <li><a href="{{ path('reservacion_new') }}"> Crear</a></li>
+                    {% endif %}
                     <li><a href="{{ path('reservacion_buscar') }}"> Buscar</a></li>
-                    <li><a href = "{{path('reservacion_reservaciones')}}" title = "Texto">Ver Listado</a></li>
-                    <li><a href = "{{path('reservacion_ganancias')}}" title = "Texto">Ganancias</a></li>
-
+                        {% if is_granted('ROLE_ADMIN') %} 
+                        <li><a href = "{{path('reservacion_reservaciones')}}" title = "Texto">Ver Listado</a></li>
+                        <li><a href = "{{path('reservacion_ganancias')}}" title = "Texto">Ganancias</a></li>
+                        {% endif %}
                 </ul>
             </li>
         </ul>

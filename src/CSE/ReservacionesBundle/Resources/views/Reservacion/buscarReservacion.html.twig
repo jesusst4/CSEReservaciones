@@ -9,8 +9,10 @@
                 <input type="text" name="txtCodigo" class="txt" value="{{codigo}}"/>
             </div>
             <div class="divContenidoDer">
+                {% if (is_granted('ROLE_ADMIN') or is_granted('ROLE_GENERAL') or  is_granted('ROLE_GERENTE'))%}
                 <label class="label">Cliente</label>
                 <input type="text" name="txtCliente" class="txt" value="{{cliente}}"/>
+                {%endif%}
             </div>
             <div class="divContenidoIzq">
             </div>

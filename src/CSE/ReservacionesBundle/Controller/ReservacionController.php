@@ -266,11 +266,30 @@ class ReservacionController extends Controller {
 
         $listaHabitaciones = $em->getRepository('CSEReservacionesBundle:Habitacion')->consultaPrecios();
         $listaHabitacionesSe = json_encode($listaHabitaciones);
+        
+        $entities = $em->getRepository('CSEReservacionesBundle:Actividad')->findAll();
+        $actividadRepo = $em->getRepository("CSEReservacionesBundle:Actividad");
+        $listaActividades = $actividadRepo->listarActividades();
+        $actResRepo1 = $em->getRepository("CSEReservacionesBundle:AtividadesXReservacion");
+        $lActivReserv = $actResRepo1->actividadesXReservacion($id);
+        $listaActividadesCod = json_encode($listaActividades);
+
+        $listaServicios = $em->getRepository('CSEReservacionesBundle:Servicio')->findAll();
+        $listaPrecios = $em->getRepository('CSEReservacionesBundle:Servicio')->consultaPrecios();
+        $actResRepo2 = $em->getRepository("CSEReservacionesBundle:ServiciosXReservacion");
+        $lServReserv = $actResRepo2->serviciosXReservacion($id);
+        $listaPreciosSe = json_encode($listaPrecios);
 
         return $this->render('CSEReservacionesBundle:Reservacion:edit.html.twig', array(
                     'entity' => $entity,
                     'edit_form' => $editForm->createView(),
-                    'habitaciones' => $listaHabitacionesSe
+                    'habitaciones' => $listaHabitacionesSe,
+                    'actividades' => $listaActividadesCod,
+                    'entities' => $entities,
+                    'servicios' => $listaServicios,
+                    'listaPrecios' => $listaPreciosSe,
+                    'actvsReserv' => $lActivReserv,
+                    'servsReserv' => $lServReserv
         ));
     }
 

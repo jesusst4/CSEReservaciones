@@ -1,6 +1,6 @@
 reservacion:
     pattern:  /
-    defaults: { _controller: "CSEReservacionesBundle:Reservacion:index" }
+#    defaults: { _controller: "CSEReservacionesBundle:Reservacion:index" }
 
 reservacion_show:
     pattern:  /{id}/show
