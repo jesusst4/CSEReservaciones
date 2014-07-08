@@ -482,7 +482,8 @@ class ReservacionController extends Controller {
     }
 
     public function envioReservacionesAction(Request $request) {
-
+        
+        $pdfGenerado = $this->get('generarReportePDF')->generarReporteGanciasPDF($request->request->get("filtro"));
         $this->get('enviarEmailServices')->enviarReporteReservaciones($request->request->get("filtro"), $request->request->get("txtCorreo"));
 
         return $this->redirect($this->generateUrl('principal'));
@@ -498,7 +499,7 @@ class ReservacionController extends Controller {
 
     public function ganaciasPDFAction(Request $request) {
 
-        $pdfGenerado = $this->get('generarReportePDF')->generarReporteGanciasPDF($request->request->get("filtro"), $request->request->get("txtCorreo"));
+        $pdfGenerado = $this->get('generarReportePDF')->generarReporteGanciasPDF($request->request->get("filtro"));
 
         header("Content-Type: application/x-pdf");
         header("Content-Disposition: attachment; filename=Reporte de Reservaciones-" . date("d-m-Y") . ".pdf");
@@ -506,5 +507,5 @@ class ReservacionController extends Controller {
         echo $pdfGenerado->render();
         return new Response("Reporte generado con éxito");
     }
-
-}
+    
+ }
