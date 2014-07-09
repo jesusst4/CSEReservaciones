@@ -10,8 +10,7 @@ web/bundles/*
 web/css/*
 web/js/*
 web/uploads/*
-    src/CSE/ReservacionesBundle/Services/documentos/*
-
+src/CSE/ReservacionesBundle/Services/documentos/*
 
 # -- Composer -----------------------------------------
 composer.phar
