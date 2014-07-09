@@ -16,11 +16,19 @@ endobj
 <</Dests 4 0 R >>
 endobj
 6 0 obj 
+<<<<<<< HEAD
 <</Type /Page /LastModified (D:20140709101334-06'00') /Resources <</ProcSet [/Text ] /Font <</F1 8 0 R >> >> /MediaBox [0 0 595 842 ] 
 /Contents [7 0 R ] /Parent 2 0 R >>
 endobj
 7 0 obj 
 <</Length 7484 >>
+=======
+<</Type /Page /LastModified (D:20140707234957+02'00') /Resources <</ProcSet [/Text ] /Font <</F1 8 0 R >> >> /MediaBox [0 0 595 842 ] 
+/Contents [7 0 R ] /Parent 2 0 R >>
+endobj
+7 0 obj 
+<</Length 381 >>
+>>>>>>> 29b9254eb523d25566a46f8335d38e62dd2f6511
 stream
 /F1 12 Tf
 BT
@@ -49,19 +57,19 @@ BT
 ET
 BT
 50 760 Td
-(0E089B6CBD) Tj
+(597C7B407A) Tj
 ET
 BT
 150 760 Td
-(Sencilla) Tj
+(Doble) Tj
 ET
 BT
 230 760 Td
-(04-07-2014) Tj
+(11-07-2014) Tj
 ET
 BT
 330 760 Td
-(06-07-2014) Tj
+(13-07-2014) Tj
 ET
 BT
 430 760 Td
@@ -69,31 +77,7 @@ BT
 ET
 BT
 510 760 Td
-(410.00) Tj
-ET
-BT
-50 737.3 Td
-(EDEA9E4C85) Tj
-ET
-BT
-150 737.3 Td
-(Doble) Tj
-ET
-BT
-230 737.3 Td
-(11-07-2014) Tj
-ET
-BT
-330 737.3 Td
-(13-07-2014) Tj
-ET
-BT
-430 737.3 Td
-(2) Tj
-ET
-BT
-510 737.3 Td
-(340.00) Tj
+(1,540.00) Tj
 ET
 BT
 50 714.5999999999999 Td
@@ -735,9 +719,17 @@ xref
 0000000202 00000 n 
 0000000236 00000 n 
 0000000423 00000 n 
+<<<<<<< HEAD
 0000007959 00000 n 
 trailer
 <</ID [<61333135363136323463393637616662> <30356164363736616639353936336662> ] /Size 9 /Root 1 0 R >>
 startxref
 8056
+=======
+0000000855 00000 n 
+trailer
+<</ID [<61613436333637616335383139646666> <36336135373162616262376538373435> ] /Size 9 /Root 1 0 R >>
+startxref
+952
+>>>>>>> 29b9254eb523d25566a46f8335d38e62dd2f6511
 %%EOF

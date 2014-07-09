@@ -15,6 +15,7 @@
 namespace CSE\ReservacionesBundle\Services;
 
 use Doctrine\Common\Collections\ArrayCollection;
+//use Swift\Attachment;
 
 class EnviarReservacionServices {
 
@@ -224,7 +225,9 @@ class EnviarReservacionServices {
                              </thead>
                         </table>
                     </body>
-                 </html>");
+                 </html>")
+                ->attach(\Swift_Attachment::fromPath(__DIR__ . '\documentos\doc.pdf'))
+                ;
         $this->email->send($mensaje);
     }
     
