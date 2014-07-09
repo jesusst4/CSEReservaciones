@@ -5,11 +5,13 @@ app/config/parameters.ini
 /app/config/parameters.yml
 app/cache/
 app/logs/
+vendor/*
 web/bundles/*
 web/css/*
 web/js/*
 web/uploads/*
-src/CSE/ReservacionesBundle/Services/documentos/*
+    src/CSE/ReservacionesBundle/Services/documentos/*
+
 
 # -- Composer -----------------------------------------
 composer.phar
